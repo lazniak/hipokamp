@@ -1,0 +1,10 @@
+function Get-Thing {
+    param([string]$Name)
+    # komentarz z } klamrą
+    $text = @"
+}
+"@
+    return $text
+}
+
+function After { }

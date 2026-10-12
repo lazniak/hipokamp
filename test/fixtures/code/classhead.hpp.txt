@@ -1,0 +1,27 @@
+struct alignas(16) Vec : Base {
+    Vec(float a);
+    float len() const;
+};
+class API_EXPORT(Widget) : public QObject {
+public:
+    explicit Widget(QObject *parent)
+        : QObject(parent),
+          n_{0} {
+    }
+    void show() {
+        draw();
+    }
+};
+class Q_CORE_EXPORT Thing : public QObject {
+    void run() {
+    }
+};
+enum class Color : int { Red, Green };
+template <class T>
+Pair<T>::Pair(T a, T b)
+    : first(make(a)),
+      second(make(b)) {
+}
+int after(int x) {
+    return x;
+}

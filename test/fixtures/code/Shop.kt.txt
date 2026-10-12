@@ -1,0 +1,17 @@
+package shop
+
+fun clean(path: String) = "${path.removeSuffix("/*")}"
+
+class Shop(private val name: String) {
+    val label = "${name.replace("(", "[")} ${"""raw ${name.length}"""}"
+
+    fun greet(items: List<String>): String {
+        return "Hi ${items.joinToString("}") { it.trim() }}"
+    }
+
+    fun after() {
+    }
+}
+
+fun top() {
+}

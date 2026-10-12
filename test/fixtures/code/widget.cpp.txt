@@ -1,0 +1,48 @@
+// Widget: listy inicjalizacyjne konstruktorów, wieloliniowe makro i surowy łańcuch
+#include <memory>
+#include <string>
+
+#define SWAP(a, b) do { \
+    auto t = a; \
+    a = b; \
+    b = t; \
+} while (0)
+
+Widget::Widget(int a, int b)
+    : a_(a),
+      b_(b),
+      impl_(std::make_unique<Impl>(a, b))
+{
+    init();
+}
+
+Widget::Widget() :
+    a_(0),
+    b_(compute(1))
+{
+}
+
+Panel::Panel(Widget w)
+    : w_{w},
+      size_(measure(w)) {
+}
+
+void Widget::swap(Widget& o) {
+#define LOCAL_SWAP(x) do { \
+    SWAP(x, o.x); \
+} while (0)
+    LOCAL_SWAP(a_);
+    LOCAL_SWAP(b_);
+}
+
+std::string Widget::shader() const {
+    return R"glsl(
+#version 330
+void fake_main() {
+    if (x) {
+)glsl";
+}
+
+int after(int x) {
+    return x;
+}

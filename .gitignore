@@ -1,0 +1,23 @@
+node_modules/
+dist/
+*.log
+.env
+.env.*
+# dane runtime trzymamy w ~/.hipokamp, nigdy w repo
+data/
+*.db
+*.db-wal
+*.db-shm
+graphify-out/
+.DS_Store
+
+# natywny hook budujemy lokalnie (scripts/build-native.*), binarki nie trafiają do repo
+# (hipokamp-hook[.exe], plik tymczasowy hipokamp-hook.new[.exe], odłożony działający plik hipokamp-hook.old-<czas>[.exe]);
+# bez tego zbudowany hook brudziłby worktree live i `hipokamp update` odmawiałby pracy
+native/hook/hipokamp-hook*
+
+# pliki generowane przez `hipokamp install` (ścieżki bezwzględne tej maszyny)
+plugin/hooks/hooks.json
+plugin/.mcp.json
+.claude/
+.hipokamp-public-export

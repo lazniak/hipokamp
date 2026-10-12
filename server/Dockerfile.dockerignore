@@ -1,0 +1,4 @@
+# Kontekst budowania to całe repo; do obrazu idą tylko pliki huba (BuildKit czyta ten plik obok Dockerfile).
+*
+!src/sync/server.ts
+!src/sync/protocol.ts

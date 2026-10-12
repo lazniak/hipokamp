@@ -1,0 +1,23 @@
+<?php
+// render: heredoc i nowdoc z klamrami, "function" i /* w treści, # jako komentarz w środku linii
+function render($name) {
+    $html = <<<HTML
+<script>function hello() {
+Pliki: src/*.php, autor: {$name}'s
+HTML;
+    $sql = <<<'SQL'
+    SELECT '{' FROM t
+    SQL;
+    $n = 1; # zamyka } w komentarzu
+    return $html . $sql;
+}
+
+#[Attribute]
+class Page {
+    public function title() {
+        return "x";
+    }
+}
+
+function after() {
+}

@@ -1,0 +1,41 @@
+# Hub synchronizacji hipokampa na własnym serwerze (wzorzec: kontener, dane w ./data,
+# port tylko na 127.0.0.1, nginx z certyfikatem przed nim). Kroki wdrożenia: docs/SYNC.md, sekcja 10.
+#
+# Układ katalogu na serwerze:
+#   /opt/hipokamp-sync/docker-compose.yml   ten plik
+#   /opt/hipokamp-sync/.env                 HIPOKAMP_SYNC_BOOTSTRAP_SHA256 (skrót, nie sekret; wzór: hub.env.example)
+#   /opt/hipokamp-sync/app/                 klon repo hipokamp (do budowania obrazu)
+#   /opt/hipokamp-sync/data/                baza huba (hub.db), właściciel uid 1000
+services:
+  hub:
+    build:
+      context: ./app
+      dockerfile: server/Dockerfile
+    image: hipokamp-sync:local
+    container_name: hipokamp-sync
+    restart: always
+    env_file: .env
+    environment:
+      - HIPOKAMP_SYNC_PUBLIC_HOSTS=hub.example.com
+      - HIPOKAMP_SYNC_REQUIRE_HTTPS=1
+      # adres klienta z X-Real-IP od nginx (limity per adres); port huba jest tylko na 127.0.0.1, więc nagłówek
+      # może ustawić wyłącznie lokalny nginx. Hub i tak bierze go tylko z połączeń od adresu loopback albo
+      # prywatnego (nginx przez bramę Dockera); inny adres proxy: HIPOKAMP_SYNC_TRUSTED_PROXIES
+      - HIPOKAMP_SYNC_TRUST_PROXY=1
+    volumes:
+      - ./data:/data
+    ports:
+      - "127.0.0.1:47790:47790"
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 512m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

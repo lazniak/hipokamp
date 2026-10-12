@@ -1,0 +1,2392 @@
+/*!
+ * HEXART CSS 1.1.0
+ * System stylów marki HEXART. Źródło: https://brandbook.hexart.io
+ * (c) HEXART Sp. z o.o. Fonty: Outfit, Barlow Condensed, JetBrains Mono (SIL OFL 1.1).
+ *
+ * Instalacja:
+ *   css/hexart.css + fonts/*.woff2 (paczka hexart-fonts.zip), w <head>:
+ *   <link rel="stylesheet" href="css/hexart.css">
+ *
+ * Motyw: ciemny domyślnie. Jasny: <html data-theme="light">. Za systemem: data-theme="auto".
+ * Wyspa motywu w dowolnym miejscu: class="hx-theme-dark" albo class="hx-theme-light".
+ *
+ * Warstwy (cascade layers): hx.tokens < hx.reset < hx.base < hx.layout < hx.components < hx.utilities.
+ * Każdy Twój styl poza warstwą wygrywa z hexart.css bez walki o specyficzność.
+ *
+ * Prefiks klas: hx-. Konwencja BEM: .hx-card, .hx-card__title, .hx-card--glass.
+ *
+ * Stany wymuszone do dokumentacji (makiety, katalogi, druk): .is-hover, .is-focus, .is-active
+ * dają komponentom wygląd :hover, :focus-visible i :active bez interakcji. Na żywej stronie ich nie używaj.
+ */
+
+@layer hx.tokens, hx.reset, hx.base, hx.layout, hx.components, hx.utilities;
+
+/* ==========================================================================
+   1. Fonty (lokalnie, podzbiory latin + latin-ext: pełne polskie znaki)
+   ========================================================================== */
+
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/outfit-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/outfit-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Barlow Condensed 400/500/600/700 */
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/barlow-condensed-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/barlow-condensed-latin-ext-400-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/barlow-condensed-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/barlow-condensed-latin-ext-500-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/barlow-condensed-latin-ext-600-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/barlow-condensed-latin-ext-700-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+/* JetBrains Mono 400/500 */
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/jetbrains-mono-latin-ext-400-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/jetbrains-mono-latin-ext-500-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+/* Znaki matematyczne (≈, √, ×, ≤ …): podzbiory z pełnych TTF. Outfit ich nie ma, więc w tekście Outfit
+   te znaki bierze Barlow Condensed, zamiast przypadkowego fontu systemowego (w PDF font Type3). */
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/barlow-condensed-math-400.woff2") format("woff2"); unicode-range: U+2200-22FF; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/barlow-condensed-math-500.woff2") format("woff2"); unicode-range: U+2200-22FF; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/barlow-condensed-math-600.woff2") format("woff2"); unicode-range: U+2200-22FF; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/barlow-condensed-math-700.woff2") format("woff2"); unicode-range: U+2200-22FF; }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/jetbrains-mono-math-400.woff2") format("woff2"); unicode-range: U+2200-22FF; }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/jetbrains-mono-math-500.woff2") format("woff2"); unicode-range: U+2200-22FF; }
+@font-face { font-family: "Outfit"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../fonts/barlow-condensed-math-400.woff2") format("woff2"); unicode-range: U+2200-22FF; }
+
+/* ==========================================================================
+   2. Tokeny (generowane z tokens.json przy budowaniu)
+   ========================================================================== */
+
+@layer hx.tokens {
+/* Generated from src/tokens/tokens.json by build.mjs. Do not edit by hand. */
+  :root {
+    --hx-onyx: #0A0A0C;
+    --hx-carbon: #050507;
+    --hx-graphite: #141418;
+    --hx-slate: #24242A;
+    --hx-gold: #D1AE53;
+    --hx-gold-light: #EBD065;
+    --hx-bronze: #7A5F1C;
+    --hx-ivory: #F6F3EC;
+    --hx-white: #FFFFFF;
+    --hx-mist: #B0B8C4;
+    --hx-steel: #6B7280;
+    --hx-signal-red: #FF4B4B;
+    --hx-gold-50: #FBF8E2;
+    --hx-gold-100: #F6EEC6;
+    --hx-gold-200: #F0E09C;
+    --hx-gold-300: #EBD065;
+    --hx-gold-400: #DFBF59;
+    --hx-gold-500: #D1AE53;
+    --hx-gold-600: #B4923B;
+    --hx-gold-700: #96772A;
+    --hx-gold-800: #7A5F1C;
+    --hx-gold-900: #5C4510;
+    --hx-gold-950: #3C2B08;
+    --hx-neutral-50: #F7F8FA;
+    --hx-neutral-100: #EBEEF2;
+    --hx-neutral-200: #D4D9E1;
+    --hx-neutral-300: #B0B8C4;
+    --hx-neutral-400: #8D94A1;
+    --hx-neutral-500: #6B7280;
+    --hx-neutral-600: #525662;
+    --hx-neutral-700: #3B3C46;
+    --hx-neutral-800: #24242A;
+    --hx-neutral-900: #141418;
+    --hx-neutral-950: #0A0A0C;
+    --hx-success-base: #59D483;
+    --hx-success-strong: #1A763F;
+    --hx-warning-base: #FEA753;
+    --hx-warning-strong: #A6560A;
+    --hx-info-base: #73BAEA;
+    --hx-info-strong: #2266A4;
+    --hx-error-base: var(--hx-signal-red);
+    --hx-error-strong: #BE222A;
+    --hx-font-sans: "Outfit", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", "Arial", sans-serif;
+    --hx-font-condensed: "Barlow Condensed", "Bahnschrift SemiCondensed", "Bahnschrift", "Arial Narrow", sans-serif;
+    --hx-font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", "SF Mono", "Menlo", monospace;
+    --hx-weight-thin: 100;
+    --hx-weight-extralight: 200;
+    --hx-weight-light: 300;
+    --hx-weight-regular: 400;
+    --hx-weight-medium: 500;
+    --hx-weight-semibold: 600;
+    --hx-weight-bold: 700;
+    --hx-text-display: clamp(3rem, 1.3333rem + 7.4074vw, 8rem);
+    --hx-text-h1: clamp(2.5rem, 1.6667rem + 3.7037vw, 5rem);
+    --hx-text-h2: clamp(2rem, 1.5rem + 2.2222vw, 3.5rem);
+    --hx-text-h3: clamp(1.5rem, 1.25rem + 1.1111vw, 2.25rem);
+    --hx-text-h4: clamp(1.25rem, 1.125rem + 0.5556vw, 1.625rem);
+    --hx-text-lead: clamp(1.125rem, 1rem + 0.5556vw, 1.5rem);
+    --hx-text-body: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);
+    --hx-text-small: clamp(0.875rem, 0.8542rem + 0.0926vw, 0.9375rem);
+    --hx-text-label: clamp(0.75rem, 0.7292rem + 0.0926vw, 0.8125rem);
+    --hx-text-code: clamp(0.875rem, 0.8542rem + 0.0926vw, 0.9375rem);
+    --hx-leading-display: 0.92;
+    --hx-leading-h1: 1;
+    --hx-leading-h2: 1.06;
+    --hx-leading-h3: 1.15;
+    --hx-leading-h4: 1.25;
+    --hx-leading-lead: 1.45;
+    --hx-leading-body: 1.6;
+    --hx-leading-small: 1.5;
+    --hx-leading-label: 1.2;
+    --hx-leading-code: 1.6;
+    --hx-tracking-display: -0.035em;
+    --hx-tracking-h1: -0.03em;
+    --hx-tracking-h2: -0.025em;
+    --hx-tracking-h3: -0.015em;
+    --hx-tracking-h4: -0.01em;
+    --hx-tracking-body: 0em;
+    --hx-tracking-caps: 0.12em;
+    --hx-tracking-caps-wide: 0.16em;
+    --hx-tracking-caps-tight: 0.08em;
+    --hx-space-0: 0rem;
+    --hx-space-1: 0.25rem;
+    --hx-space-2: 0.5rem;
+    --hx-space-3: 0.75rem;
+    --hx-space-4: 1rem;
+    --hx-space-6: 1.5rem;
+    --hx-space-8: 2rem;
+    --hx-space-12: 3rem;
+    --hx-space-16: 4rem;
+    --hx-space-24: 6rem;
+    --hx-space-32: 8rem;
+    --hx-radius-0: 0px;
+    --hx-radius-2: 2px;
+    --hx-radius-4: 4px;
+    --hx-chamfer-sm: 6px;
+    --hx-chamfer-md: 10px;
+    --hx-chamfer-lg: 16px;
+    --hx-chamfer-xl: 28px;
+    --hx-chamfer-ratio: 1.732;
+    --hx-border-hairline: 1px;
+    --hx-border-strong: 2px;
+    --hx-border-focus: 2px;
+    --hx-border-focus-offset: 3px;
+    --hx-shadow-sm: 0px 1px 2px 0px #00000066;
+    --hx-shadow-md: 0px 12px 32px -12px #00000099;
+    --hx-shadow-lg: 0px 32px 80px -24px #000000B3;
+    --hx-glow-gold-sm: 0px 0px 12px 0px #D1AE5340;
+    --hx-glow-gold: 0px 0px 32px 0px #D1AE5347;
+    --hx-glow-gold-lg: 0px 0px 96px 8px #D1AE5338;
+    --hx-gradient-gold: linear-gradient(135deg, #7A5F1C 0%, #D1AE53 45%, #EBD065 60%, #D1AE53 75%, #7A5F1C 100%);
+    --hx-gradient-gold-line: linear-gradient(90deg, #D1AE5300 0%, #D1AE53 50%, #D1AE5300 100%);
+    --hx-ease-standard: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --hx-ease-enter: cubic-bezier(0.2, 0, 0, 1);
+    --hx-duration-instant: 120ms;
+    --hx-duration-fast: 200ms;
+    --hx-duration-base: 320ms;
+    --hx-duration-slow: 600ms;
+    --hx-duration-cinematic: 1200ms;
+    --hx-opacity-grain: 0.07;
+    --hx-opacity-pattern: 0.06;
+    --hx-opacity-disabled: 0.42;
+    --hx-z-base: 0;
+    --hx-z-raised: 1;
+    --hx-z-sticky: 100;
+    --hx-z-header: 200;
+    --hx-z-drawer: 300;
+    --hx-z-overlay: 400;
+    --hx-z-modal: 500;
+    --hx-z-toast: 600;
+    --hx-breakpoint-xs: 360px;
+    --hx-breakpoint-sm: 768px;
+    --hx-breakpoint-md: 1024px;
+    --hx-breakpoint-lg: 1440px;
+    --hx-breakpoint-xl: 1920px;
+    --hx-container-prose: 42rem;
+    --hx-container-sm: 720px;
+    --hx-container-md: 960px;
+    --hx-container-lg: 1200px;
+    --hx-container-xl: 1320px;
+    --hx-container-gutter: clamp(1rem, 0.5rem + 2.2222vw, 2.5rem);
+  }
+  :root, [data-theme="dark"], .hx-theme-dark {
+    color-scheme: dark;
+    --hx-bg: var(--hx-onyx);
+    --hx-bg-deep: var(--hx-carbon);
+    --hx-surface: var(--hx-graphite);
+    --hx-surface-2: var(--hx-slate);
+    --hx-line: var(--hx-slate);
+    --hx-line-strong: var(--hx-neutral-700);
+    --hx-fg: var(--hx-white);
+    --hx-fg-muted: var(--hx-mist);
+    --hx-fg-subtle: var(--hx-neutral-400);
+    --hx-accent: var(--hx-gold);
+    --hx-accent-hover: var(--hx-gold-400);
+    --hx-accent-active: var(--hx-gold-600);
+    --hx-accent-text: var(--hx-gold);
+    --hx-on-accent: var(--hx-onyx);
+    --hx-line-accent: #D1AE5366;
+    --hx-focus: var(--hx-gold-light);
+    --hx-selection-bg: var(--hx-gold);
+    --hx-selection-fg: var(--hx-onyx);
+    --hx-signal: var(--hx-signal-red);
+    --hx-signal-text: var(--hx-signal-red);
+    --hx-success: var(--hx-success-base);
+    --hx-warning: var(--hx-warning-base);
+    --hx-info: var(--hx-info-base);
+    --hx-error: var(--hx-error-base);
+    --hx-glass-bg: #14141899;
+    --hx-glass-line: #FFFFFF1F;
+    --hx-scrim: #050507B8;
+    --hx-input-bg: var(--hx-carbon);
+    --hx-field-line: var(--hx-neutral-500);
+    --hx-data-1: var(--hx-gold-500);
+    --hx-data-2: var(--hx-neutral-300);
+    --hx-data-3: var(--hx-neutral-400);
+    --hx-data-4: var(--hx-neutral-500);
+    --hx-data-grid: var(--hx-line);
+    --hx-data-axis: var(--hx-fg-subtle);
+    --hx-data-alert: var(--hx-signal-red);
+  }
+  [data-theme="light"], .hx-theme-light {
+    color-scheme: light;
+    --hx-bg: var(--hx-ivory);
+    --hx-bg-deep: #ECE7DB;
+    --hx-surface: var(--hx-white);
+    --hx-surface-2: #EFEBE2;
+    --hx-line: #DCD6C9;
+    --hx-line-strong: #BDB5A4;
+    --hx-fg: var(--hx-onyx);
+    --hx-fg-muted: var(--hx-neutral-700);
+    --hx-fg-subtle: var(--hx-neutral-600);
+    --hx-accent: var(--hx-gold);
+    --hx-accent-hover: var(--hx-gold-600);
+    --hx-accent-active: var(--hx-gold-700);
+    --hx-accent-text: var(--hx-bronze);
+    --hx-on-accent: var(--hx-onyx);
+    --hx-line-accent: #7A5F1C73;
+    --hx-focus: var(--hx-bronze);
+    --hx-selection-bg: var(--hx-gold);
+    --hx-selection-fg: var(--hx-onyx);
+    --hx-signal: var(--hx-signal-red);
+    --hx-signal-text: var(--hx-error-strong);
+    --hx-success: var(--hx-success-strong);
+    --hx-warning: var(--hx-warning-strong);
+    --hx-info: var(--hx-info-strong);
+    --hx-error: var(--hx-error-strong);
+    --hx-glass-bg: #FFFFFFA6;
+    --hx-glass-line: #0A0A0C14;
+    --hx-scrim: #F6F3ECC7;
+    --hx-input-bg: var(--hx-white);
+    --hx-field-line: var(--hx-neutral-500);
+    --hx-data-1: var(--hx-gold-800);
+    --hx-data-2: var(--hx-neutral-700);
+    --hx-data-3: var(--hx-neutral-600);
+    --hx-data-4: var(--hx-neutral-500);
+    --hx-data-grid: var(--hx-line);
+    --hx-data-axis: var(--hx-fg-subtle);
+    --hx-data-alert: var(--hx-error-strong);
+  }
+  @media screen and (prefers-color-scheme: light) {
+    :root[data-theme="auto"] {
+      color-scheme: light;
+      --hx-bg: var(--hx-ivory);
+      --hx-bg-deep: #ECE7DB;
+      --hx-surface: var(--hx-white);
+      --hx-surface-2: #EFEBE2;
+      --hx-line: #DCD6C9;
+      --hx-line-strong: #BDB5A4;
+      --hx-fg: var(--hx-onyx);
+      --hx-fg-muted: var(--hx-neutral-700);
+      --hx-fg-subtle: var(--hx-neutral-600);
+      --hx-accent: var(--hx-gold);
+      --hx-accent-hover: var(--hx-gold-600);
+      --hx-accent-active: var(--hx-gold-700);
+      --hx-accent-text: var(--hx-bronze);
+      --hx-on-accent: var(--hx-onyx);
+      --hx-line-accent: #7A5F1C73;
+      --hx-focus: var(--hx-bronze);
+      --hx-selection-bg: var(--hx-gold);
+      --hx-selection-fg: var(--hx-onyx);
+      --hx-signal: var(--hx-signal-red);
+      --hx-signal-text: var(--hx-error-strong);
+      --hx-success: var(--hx-success-strong);
+      --hx-warning: var(--hx-warning-strong);
+      --hx-info: var(--hx-info-strong);
+      --hx-error: var(--hx-error-strong);
+      --hx-glass-bg: #FFFFFFA6;
+      --hx-glass-line: #0A0A0C14;
+      --hx-scrim: #F6F3ECC7;
+      --hx-input-bg: var(--hx-white);
+      --hx-field-line: var(--hx-neutral-500);
+      --hx-data-1: var(--hx-gold-800);
+      --hx-data-2: var(--hx-neutral-700);
+      --hx-data-3: var(--hx-neutral-600);
+      --hx-data-4: var(--hx-neutral-500);
+      --hx-data-grid: var(--hx-line);
+      --hx-data-axis: var(--hx-fg-subtle);
+      --hx-data-alert: var(--hx-error-strong);
+    }
+  }
+}
+
+/* ==========================================================================
+   3. Reset
+   ========================================================================== */
+
+@layer hx.reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    hanging-punctuation: first last;
+  }
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+  img,
+  video {
+    height: auto;
+  }
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+  }
+  button {
+    cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+    padding: 0;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  fieldset {
+    border: 0;
+    padding: 0;
+    min-width: 0;
+  }
+  [hidden]:not([hidden="until-found"]) {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   4. Baza: typografia, linki, zaznaczenie, fokus, ruch
+   ========================================================================== */
+
+@layer hx.base {
+  html {
+    background-color: var(--hx-bg);
+    color: var(--hx-fg);
+    font-family: var(--hx-font-sans);
+    font-size: 100%;
+    font-weight: var(--hx-weight-regular);
+    line-height: var(--hx-leading-body);
+    font-kerning: normal;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    min-height: 100svh;
+    font-size: var(--hx-text-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--hx-weight-light);
+    text-wrap: balance;
+  }
+  h1 { font-size: var(--hx-text-h1); line-height: var(--hx-leading-h1); letter-spacing: var(--hx-tracking-h1); }
+  h2 { font-size: var(--hx-text-h2); line-height: var(--hx-leading-h2); letter-spacing: var(--hx-tracking-h2); }
+  h3 { font-size: var(--hx-text-h3); line-height: var(--hx-leading-h3); letter-spacing: var(--hx-tracking-h3); font-weight: var(--hx-weight-regular); }
+  h4 { font-size: var(--hx-text-h4); line-height: var(--hx-leading-h4); letter-spacing: var(--hx-tracking-h4); font-weight: var(--hx-weight-medium); }
+  h5, h6 { font-size: var(--hx-text-body); line-height: var(--hx-leading-h4); font-weight: var(--hx-weight-semibold); }
+
+  p,
+  li,
+  dd,
+  figcaption {
+    text-wrap: pretty;
+  }
+  strong,
+  b {
+    font-weight: var(--hx-weight-semibold);
+  }
+  small {
+    font-size: var(--hx-text-small);
+  }
+
+  a {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--hx-line-accent);
+    text-underline-offset: 0.22em;
+    transition:
+      color var(--hx-duration-instant) var(--hx-ease-standard),
+      text-decoration-color var(--hx-duration-instant) var(--hx-ease-standard);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    a:hover {
+      color: var(--hx-accent-text);
+      text-decoration-color: currentColor;
+    }
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--hx-font-mono);
+    font-size: 0.92em;
+    font-variant-ligatures: none;
+  }
+  :not(pre) > code,
+  kbd {
+    padding: 0.08em 0.36em;
+    background: var(--hx-surface);
+    border: 1px solid var(--hx-line);
+    border-radius: var(--hx-radius-2);
+    white-space: nowrap;
+  }
+  pre {
+    overflow-x: auto;
+    tab-size: 2;
+  }
+
+  hr {
+    border: 0;
+    border-top: var(--hx-border-hairline) solid var(--hx-line);
+  }
+
+  ::selection {
+    background-color: var(--hx-selection-bg);
+    color: var(--hx-selection-fg);
+  }
+
+  /* Złoty pierścień fokusu: tylko przy nawigacji klawiaturą. */
+  :focus-visible {
+    outline: var(--hx-border-focus) solid var(--hx-focus);
+    outline-offset: var(--hx-border-focus-offset);
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   5. Układ: kontener, siatka 12 kolumn, stos, klaster
+   ========================================================================== */
+
+@layer hx.layout {
+  /* Kontener: maks. 1320 px, margines boczny 16–40 px. */
+  .hx-container {
+    --hx-container: var(--hx-container-xl);
+    width: min(var(--hx-container), 100% - 2 * var(--hx-container-gutter));
+    margin-inline: auto;
+  }
+  .hx-container--lg { --hx-container: var(--hx-container-lg); }
+  .hx-container--md { --hx-container: var(--hx-container-md); }
+  .hx-container--sm { --hx-container: var(--hx-container-sm); }
+  .hx-container--prose { --hx-container: var(--hx-container-prose); }
+
+  .hx-section {
+    padding-block: clamp(var(--hx-space-16), 8vw, var(--hx-space-32));
+  }
+
+  /* Siatka 12 kolumn. Dzieci domyślnie na całą szerokość (mobile first):
+     .hx-col-6 zawsze, .hx-col-sm-6 od 768 px, .hx-col-md-6 od 1024 px, .hx-col-lg-6 od 1440 px. */
+  .hx-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--hx-grid-gap, var(--hx-space-6)) var(--hx-grid-gap-x, var(--hx-space-6));
+  }
+  .hx-grid > * {
+    grid-column: span 12;
+    min-width: 0;
+  }
+  .hx-col-1 { grid-column: span 1; } .hx-col-2 { grid-column: span 2; } .hx-col-3 { grid-column: span 3; }
+  .hx-col-4 { grid-column: span 4; } .hx-col-5 { grid-column: span 5; } .hx-col-6 { grid-column: span 6; }
+  .hx-col-7 { grid-column: span 7; } .hx-col-8 { grid-column: span 8; } .hx-col-9 { grid-column: span 9; }
+  .hx-col-10 { grid-column: span 10; } .hx-col-11 { grid-column: span 11; } .hx-col-12 { grid-column: span 12; }
+  @media (min-width: 768px) {
+    .hx-col-sm-1 { grid-column: span 1; } .hx-col-sm-2 { grid-column: span 2; } .hx-col-sm-3 { grid-column: span 3; }
+    .hx-col-sm-4 { grid-column: span 4; } .hx-col-sm-5 { grid-column: span 5; } .hx-col-sm-6 { grid-column: span 6; }
+    .hx-col-sm-7 { grid-column: span 7; } .hx-col-sm-8 { grid-column: span 8; } .hx-col-sm-9 { grid-column: span 9; }
+    .hx-col-sm-10 { grid-column: span 10; } .hx-col-sm-11 { grid-column: span 11; } .hx-col-sm-12 { grid-column: span 12; }
+  }
+  @media (min-width: 1024px) {
+    .hx-col-md-1 { grid-column: span 1; } .hx-col-md-2 { grid-column: span 2; } .hx-col-md-3 { grid-column: span 3; }
+    .hx-col-md-4 { grid-column: span 4; } .hx-col-md-5 { grid-column: span 5; } .hx-col-md-6 { grid-column: span 6; }
+    .hx-col-md-7 { grid-column: span 7; } .hx-col-md-8 { grid-column: span 8; } .hx-col-md-9 { grid-column: span 9; }
+    .hx-col-md-10 { grid-column: span 10; } .hx-col-md-11 { grid-column: span 11; } .hx-col-md-12 { grid-column: span 12; }
+  }
+  @media (min-width: 1440px) {
+    .hx-col-lg-1 { grid-column: span 1; } .hx-col-lg-2 { grid-column: span 2; } .hx-col-lg-3 { grid-column: span 3; }
+    .hx-col-lg-4 { grid-column: span 4; } .hx-col-lg-5 { grid-column: span 5; } .hx-col-lg-6 { grid-column: span 6; }
+    .hx-col-lg-7 { grid-column: span 7; } .hx-col-lg-8 { grid-column: span 8; } .hx-col-lg-9 { grid-column: span 9; }
+    .hx-col-lg-10 { grid-column: span 10; } .hx-col-lg-11 { grid-column: span 11; } .hx-col-lg-12 { grid-column: span 12; }
+  }
+
+  /* Siatka automatyczna: tyle kolumn, ile się zmieści (min. szerokość --hx-min). */
+  .hx-auto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--hx-min, 16rem), 100%), 1fr));
+    gap: var(--hx-grid-gap, var(--hx-space-6));
+  }
+
+  /* Stos: pionowy rytm z jednym odstępem. */
+  .hx-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hx-stack-gap, var(--hx-space-4));
+  }
+  .hx-stack--xs { --hx-stack-gap: var(--hx-space-1); }
+  .hx-stack--sm { --hx-stack-gap: var(--hx-space-2); }
+  .hx-stack--lg { --hx-stack-gap: var(--hx-space-8); }
+  .hx-stack--xl { --hx-stack-gap: var(--hx-space-16); }
+
+  /* Klaster: elementy w linii z zawijaniem (przyciski, tagi, linki). */
+  .hx-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--hx-cluster-gap, var(--hx-space-3));
+  }
+  .hx-cluster--between { justify-content: space-between; }
+  .hx-cluster--end { justify-content: flex-end; }
+  .hx-cluster--lg { --hx-cluster-gap: var(--hx-space-6); }
+}
+
+/* ==========================================================================
+   6. Komponenty
+   ========================================================================== */
+
+@layer hx.components {
+  /* ------------------------------------------------------------------------
+     6.1 Ścięty narożnik (chamfer): sygnaturowy detal marki
+     ------------------------------------------------------------------------
+     Prawy górny róg ścięty pod kątem 30° do poziomu, czyli dokładnie jak ramię
+     heksagonu w sygnecie (proporcja szerokość : wysokość = √3 : 1).
+     Wysokość cięcia: --hx-cut (tokeny chamfer sm 6, md 10, lg 16, xl 28 px).
+
+     Technika: border-radius z eliptycznym promieniem + corner-shape: bevel.
+     Dzięki temu obramowanie, cień i pierścień fokusu (outline) biegną wzdłuż
+     skosu, a zawartość (np. zdjęcie w karcie) jest przycinana do kształtu.
+     Przeglądarki bez corner-shape dostają clip-path (sekcja fallback niżej):
+     skośna krawędź jest rysowana gradientem, a fokus pierścieniem wewnętrznym,
+     bo clip-path obcina outline i border. */
+  :where(.hx-chamfer, .hx-btn, .hx-badge, .hx-card, .hx-input, .hx-textarea, .hx-select, .hx-alert, .hx-ai, .hx-switch, .hx-tabs__list) {
+    --hx-cut-y: var(--hx-cut, var(--hx-chamfer-md));
+    --hx-cut-x: calc(var(--hx-cut-y) * var(--hx-chamfer-ratio));
+    border-radius: 0 var(--hx-cut-x) 0 0 / 0 var(--hx-cut-y) 0 0;
+    corner-shape: bevel;
+  }
+  .hx-chamfer--sm { --hx-cut: var(--hx-chamfer-sm); }
+  .hx-chamfer--md { --hx-cut: var(--hx-chamfer-md); }
+  .hx-chamfer--lg { --hx-cut: var(--hx-chamfer-lg); }
+  .hx-chamfer--xl { --hx-cut: var(--hx-chamfer-xl); }
+  .hx-chamfer--none { --hx-cut: 0px; }
+
+  @supports not (corner-shape: bevel) {
+    :where(.hx-chamfer, .hx-btn, .hx-badge, .hx-card, .hx-input, .hx-textarea, .hx-select, .hx-alert, .hx-ai, .hx-switch, .hx-tabs__list) {
+      border-radius: 0;
+      clip-path: polygon(0 0, calc(100% - var(--hx-cut-x)) 0, 100% var(--hx-cut-y), 100% 100%, 0 100%);
+    }
+    /* Skośny odcinek obramowania, którego clip-path nie rysuje. */
+    :where(.hx-btn--secondary, .hx-badge, .hx-card, .hx-input, .hx-textarea, .hx-alert, .hx-chamfer--line) {
+      background-image: linear-gradient(
+        to bottom left,
+        transparent 50%,
+        var(--hx-chamfer-edge, var(--hx-line)) 50%,
+        var(--hx-chamfer-edge, var(--hx-line)) calc(50% + 1px),
+        transparent calc(50% + 1px)
+      );
+      background-size: var(--hx-cut-x) var(--hx-cut-y);
+      background-position: top right;
+      background-repeat: no-repeat;
+    }
+    /* Fokus do środka: pierścień zewnętrzny zostałby przycięty. */
+    :where(.hx-chamfer, .hx-btn, .hx-input, .hx-textarea, .hx-select, .hx-switch):focus-visible,
+    :where(.hx-chamfer, .hx-btn, .hx-input, .hx-textarea, .hx-select, .hx-switch).is-focus {
+      outline-color: transparent;
+      box-shadow: inset 0 0 0 var(--hx-border-focus) var(--hx-focus);
+    }
+    /* Przycisk z fokusem jest wypełniony, a wypełnienie przykryłoby cień wewnętrzny:
+       pierścień rysuje obrys z ujemnym odsunięciem, w kolorze czytelnym na wypełnieniu. */
+    :where(.hx-btn, .hx-fill):focus-visible,
+    :where(.hx-btn, .hx-fill).is-focus {
+      outline-color: var(--hx-btn-ring, var(--hx-focus));
+      outline-offset: calc(var(--hx-border-focus) * -2);
+      box-shadow: none;
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     6.2 Przyciski
+     primary (złoto + tekst Onyx 9,3:1), secondary (obrys), ghost; sm / md / lg;
+     z ikoną, sama ikona, disabled, loading (aria-busy + .hx-btn__spinner).
+
+     Ruch (wersja 1.1): najechanie wypełnia przycisk od lewej do prawej.
+     Warstwa ::before w kolorze --hx-btn-fill odsłania się przez clip-path,
+     od inset(0 100% 0 0) do inset(0): 320 ms, --hx-ease-enter. Po zjechaniu
+     wraca tą samą drogą w 200 ms, --hx-ease-standard. Tekst przechodzi liniowo
+     w 120 ms, więc zmienia kolor dokładnie wtedy, gdy wypełnienie mija połowę
+     (krzywa enter dochodzi do 50% w 20% czasu: 64 ms; standard w 28%: 56 ms).
+     Przycisk nie rośnie, nie przesuwa się, nie obraca i nie świeci.
+     Naciśnięcie: pełne, ciemniejsze wypełnienie od razu, bez animacji.
+     Najechanie działa tylko ze wskaźnikiem (hover: hover, pointer: fine), żeby
+     na dotyku stan nie zostawał po stuknięciu. Fokus z klawiatury dostaje to
+     samo wypełnienie i pierścień fokusu. Przy prefers-reduced-motion stan
+     końcowy pojawia się od razu (reguła globalna w sekcji 4).
+     ------------------------------------------------------------------------ */
+  .hx-btn {
+    --hx-cut: var(--hx-chamfer-md);
+    --hx-btn-h: 3rem;
+    --hx-btn-px: 1.5rem;
+    --hx-btn-fs: 1rem;
+    --hx-btn-bg: var(--hx-accent);
+    --hx-btn-fg: var(--hx-on-accent);
+    --hx-btn-line: var(--hx-accent);
+    --hx-btn-fill: var(--hx-accent-hover);
+    --hx-btn-fill-fg: var(--hx-on-accent);
+    --hx-btn-press: var(--hx-accent-active);
+    --hx-btn-ring: var(--hx-on-accent);
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625em;
+    min-height: var(--hx-btn-h);
+    padding: 0 var(--hx-btn-px);
+    font-family: var(--hx-font-sans);
+    font-size: var(--hx-btn-fs);
+    font-weight: var(--hx-weight-medium);
+    line-height: 1.1;
+    letter-spacing: 0.005em;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--hx-btn-fg);
+    background-color: var(--hx-btn-bg);
+    border: var(--hx-border-hairline) solid var(--hx-btn-line);
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color var(--hx-duration-instant) linear,
+      background-color var(--hx-duration-fast) var(--hx-ease-standard),
+      border-color var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  /* Warstwa wypełnienia: pokrywa też obramowanie (inset ujemny o grubość linii)
+     i dziedziczy ścięty narożnik, więc w stanie pełnym przycisk ma jeden kolor. */
+  .hx-btn::before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--hx-border-hairline) * -1);
+    z-index: -1;
+    border-radius: inherit;
+    corner-shape: inherit;
+    background-color: var(--hx-btn-fill);
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+    transition: clip-path var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-btn:hover {
+      color: var(--hx-btn-fill-fg);
+    }
+    .hx-btn:hover::before {
+      clip-path: inset(0);
+      transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+    }
+  }
+  .hx-btn:focus-visible,
+  .hx-btn.is-hover,
+  .hx-btn.is-focus {
+    color: var(--hx-btn-fill-fg);
+  }
+  .hx-btn:focus-visible::before,
+  .hx-btn.is-hover::before,
+  .hx-btn.is-focus::before {
+    clip-path: inset(0);
+    transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+  }
+  .hx-btn:active,
+  .hx-btn.is-active {
+    color: var(--hx-btn-fill-fg);
+    transition: none;
+  }
+  .hx-btn:active::before,
+  .hx-btn.is-active::before {
+    clip-path: inset(0);
+    background-color: var(--hx-btn-press);
+    transition: none;
+  }
+  /* Fokus wymuszony klasą: ten sam złoty pierścień co :focus-visible (sekcja 4). */
+  :where(.hx-btn, .hx-input, .hx-textarea, .hx-select, .hx-check, .hx-radio, .hx-switch, .hx-tab, .hx-link, .hx-chamfer, .hx-card--interactive).is-focus {
+    outline: var(--hx-border-focus) solid var(--hx-focus);
+    outline-offset: var(--hx-border-focus-offset);
+  }
+  .hx-btn svg {
+    width: 1.125em;
+    height: 1.125em;
+    flex: none;
+  }
+
+  /* Obrys w kolorze accent-text: złoto na ciemnym, Bronze na jasnym (kontrast obrysu min. 3:1).
+     Wypełnienie złotem, tekst przechodzi w Onyx (9,3:1). */
+  .hx-btn--secondary {
+    --hx-btn-bg: transparent;
+    --hx-btn-fg: var(--hx-fg);
+    --hx-btn-line: var(--hx-accent-text);
+    --hx-btn-fill: var(--hx-accent);
+    --hx-btn-fill-fg: var(--hx-on-accent);
+    --hx-btn-press: var(--hx-accent-active);
+    --hx-chamfer-edge: var(--hx-accent-text);
+  }
+  /* Ghost: bez obrysu, wypełnienie powierzchnią, tekst bez zmiany. */
+  .hx-btn--ghost {
+    --hx-btn-bg: transparent;
+    --hx-btn-fg: var(--hx-fg);
+    --hx-btn-line: transparent;
+    --hx-btn-fill: var(--hx-surface-2);
+    --hx-btn-fill-fg: var(--hx-fg);
+    --hx-btn-press: var(--hx-line-strong);
+    --hx-btn-ring: var(--hx-focus);
+  }
+
+  .hx-btn--sm {
+    --hx-cut: var(--hx-chamfer-sm);
+    --hx-btn-h: 2.25rem;
+    --hx-btn-px: 1rem;
+    --hx-btn-fs: 0.875rem;
+  }
+  /* Mały przycisk ma 36 px wysokości, ale cel dotyku 44 px. */
+  .hx-btn--sm::after {
+    content: "";
+    position: absolute;
+    inset: -4px 0;
+  }
+  .hx-btn--lg {
+    --hx-btn-h: 3.5rem;
+    --hx-btn-px: 2rem;
+    --hx-btn-fs: 1.0625rem;
+  }
+  .hx-btn--icon {
+    --hx-btn-px: 0;
+    width: var(--hx-btn-h);
+    min-width: 2.75rem;
+  }
+  .hx-btn--block {
+    display: flex;
+    width: 100%;
+  }
+
+  /* Wyłączony i zajęty: bez wypełnienia, tekst w kolorze spoczynkowym. */
+  .hx-btn:disabled,
+  .hx-btn[aria-disabled="true"] {
+    opacity: var(--hx-opacity-disabled);
+    cursor: not-allowed;
+    filter: none;
+  }
+  .hx-btn[aria-disabled="true"] {
+    pointer-events: none;
+  }
+  .hx-btn:is(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+    color: var(--hx-btn-fg);
+  }
+  .hx-btn:is(:disabled, [aria-disabled="true"], [aria-busy="true"])::before {
+    clip-path: inset(0 100% 0 0);
+    transition: none;
+  }
+
+  /* Ładowanie: <button class="hx-btn" aria-busy="true"><span class="hx-btn__spinner" aria-hidden="true"></span>Wysyłanie</button> */
+  .hx-btn[aria-busy="true"] {
+    cursor: progress;
+    pointer-events: none;
+  }
+  .hx-btn__spinner {
+    width: 1em;
+    height: 1em;
+    flex: none;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: hx-spin 720ms linear infinite;
+  }
+  .hx-btn:not([aria-busy="true"]) .hx-btn__spinner {
+    display: none;
+  }
+  @keyframes hx-spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     6.2a Wypełnienie dla własnych kontrolek (.hx-fill)
+     Ten sam ruch co .hx-btn dla elementów, które nie są przyciskiem marki:
+     przyciski ikon, „Kopiuj”, chipy, kafle pobierania, pozycje menu.
+     <button class="hx-fill">…</button>            delikatne złoto 14%, tekst bez zmiany
+     <button class="hx-fill hx-fill--solid">…</button>  pełne złoto, tekst Onyx
+     Zmienne: --hx-fill-color, --hx-fill-press; --solid dodaje --hx-fill-fg (kolor tekstu w stanie pełnym).
+     Wariant podstawowy nie zmienia koloru tekstu: zmianę (jeśli potrzebna) ustawia komponent.
+     Element dostaje position: relative i isolation; ::before jest zajęty przez wypełnienie.
+     ------------------------------------------------------------------------ */
+  .hx-fill {
+    --hx-fill-color: color-mix(in oklab, var(--hx-accent) 14%, transparent);
+    --hx-fill-press: color-mix(in oklab, var(--hx-accent) 26%, transparent);
+    position: relative;
+    isolation: isolate;
+    transition: color var(--hx-duration-instant) linear;
+  }
+  .hx-fill::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    corner-shape: inherit;
+    background-color: var(--hx-fill-color);
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+    transition: clip-path var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-fill:hover::before {
+      clip-path: inset(0);
+      transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+    }
+    .hx-fill--solid:hover {
+      color: var(--hx-fill-fg);
+    }
+  }
+  .hx-fill:focus-visible::before,
+  .hx-fill.is-hover::before {
+    clip-path: inset(0);
+    transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+  }
+  .hx-fill--solid:is(:focus-visible, .is-hover, .is-active, :active) {
+    color: var(--hx-fill-fg);
+  }
+  .hx-fill:active::before,
+  .hx-fill.is-active::before {
+    clip-path: inset(0);
+    background-color: var(--hx-fill-press);
+    transition: none;
+  }
+  .hx-fill:is(:disabled, [aria-disabled="true"])::before {
+    clip-path: inset(0 100% 0 0);
+  }
+  .hx-fill--solid {
+    --hx-fill-color: var(--hx-accent);
+    --hx-fill-press: var(--hx-accent-active);
+    --hx-fill-fg: var(--hx-on-accent);
+    --hx-btn-ring: var(--hx-on-accent);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.3 Linki
+     Wersja 1.1: podkreślenie rysuje się od lewej do prawej. Spoczynkowa linia
+     włosowa (--hx-link-line) zostaje, więc link różni się od tekstu nie tylko
+     kolorem. Na najechaniu i fokusie nad nią wchodzi linia w kolorze tekstu:
+     gradient o szerokości 200% przesuwa się background-position od 100% do 0,
+     320 ms --hx-ease-enter; powrót 200 ms --hx-ease-standard. Bez transform.
+     ------------------------------------------------------------------------ */
+  .hx-link,
+  .hx-breadcrumbs a {
+    --hx-link-line: var(--hx-line-accent);
+    --hx-link-draw: currentColor;
+    text-decoration: none;
+    background-image:
+      linear-gradient(to right, var(--hx-link-draw) 50%, transparent 50%),
+      linear-gradient(var(--hx-link-line), var(--hx-link-line));
+    background-size: 200% 1px, 100% 1px;
+    background-position: 100% 100%, 0 100%;
+    background-repeat: no-repeat;
+    transition:
+      color var(--hx-duration-instant) linear,
+      background-position var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  .hx-link {
+    color: var(--hx-accent-text);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-link:hover,
+    .hx-breadcrumbs a:hover {
+      background-position: 0 100%, 0 100%;
+      transition:
+        color var(--hx-duration-instant) linear,
+        background-position var(--hx-duration-base) var(--hx-ease-enter);
+    }
+  }
+  .hx-link:focus-visible,
+  .hx-link.is-hover,
+  .hx-breadcrumbs a:focus-visible {
+    background-position: 0 100%, 0 100%;
+    transition:
+      color var(--hx-duration-instant) linear,
+      background-position var(--hx-duration-base) var(--hx-ease-enter);
+  }
+  .hx-link--quiet {
+    --hx-link-line: var(--hx-line-strong);
+    color: inherit;
+  }
+  /* Link akcji z ikoną strzałki (SVG w środku linku): bez linii spoczynkowej,
+     złota linia rysuje się pod tekstem i ikoną. Ikona stoi w miejscu. */
+  .hx-link--action {
+    --hx-link-line: transparent;
+    --hx-link-draw: var(--hx-accent-text);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding-bottom: 0.3em;
+    font-weight: var(--hx-weight-medium);
+    color: var(--hx-fg);
+  }
+  /* Pole dotyku 44 px bez zmiany układu. */
+  .hx-link--action::after {
+    content: "";
+    position: absolute;
+    inset: 50% 0 auto;
+    height: 2.75rem;
+    translate: 0 -50%;
+  }
+  .hx-link--action svg {
+    width: 1em;
+    height: 1em;
+    color: var(--hx-accent-text);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.4 Kicker, etykiety, plakietki, tagi
+     ------------------------------------------------------------------------ */
+  /* Kicker: nadtytuł. Barlow Condensed, wersaliki, rozstrzelenie +0,12 em. */
+  .hx-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75em;
+    font-family: var(--hx-font-condensed);
+    font-size: var(--hx-text-label);
+    font-weight: var(--hx-weight-semibold);
+    line-height: var(--hx-leading-label);
+    letter-spacing: var(--hx-tracking-caps);
+    text-transform: uppercase;
+    color: var(--hx-accent-text);
+  }
+  .hx-kicker__num {
+    font-variant-numeric: tabular-nums;
+    color: var(--hx-fg);
+  }
+  .hx-kicker__num::after {
+    content: "";
+    display: inline-block;
+    width: 1.75em;
+    height: 1px;
+    margin-left: 0.75em;
+    vertical-align: middle;
+    background: var(--hx-line-accent);
+  }
+  .hx-kicker--muted {
+    color: var(--hx-fg-muted);
+  }
+
+  .hx-label {
+    display: block;
+    font-family: var(--hx-font-condensed);
+    font-size: var(--hx-text-label);
+    font-weight: var(--hx-weight-semibold);
+    letter-spacing: var(--hx-tracking-caps);
+    line-height: var(--hx-leading-label);
+    text-transform: uppercase;
+    color: var(--hx-fg-muted);
+  }
+
+  /* Plakietka: status, kategoria, filar oferty. */
+  .hx-badge {
+    --hx-cut: var(--hx-chamfer-sm);
+    --hx-badge-fg: var(--hx-fg-muted);
+    --hx-badge-bg: var(--hx-surface);
+    --hx-badge-line: var(--hx-line-strong);
+    --hx-chamfer-edge: var(--hx-badge-line);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    min-height: 1.625rem;
+    padding: 0.25em 0.75em 0.2em;
+    font-family: var(--hx-font-condensed);
+    font-size: var(--hx-text-label);
+    font-weight: var(--hx-weight-semibold);
+    line-height: 1;
+    letter-spacing: var(--hx-tracking-caps);
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--hx-badge-fg);
+    background-color: var(--hx-badge-bg);
+    border: var(--hx-border-hairline) solid var(--hx-badge-line);
+  }
+  .hx-badge--gold {
+    --hx-badge-fg: var(--hx-accent-text);
+    --hx-badge-bg: transparent;
+    --hx-badge-line: var(--hx-line-accent);
+  }
+  .hx-badge--solid {
+    --hx-badge-fg: var(--hx-on-accent);
+    --hx-badge-bg: var(--hx-accent);
+    --hx-badge-line: var(--hx-accent);
+  }
+  .hx-badge--success,
+  .hx-badge--warning,
+  .hx-badge--info,
+  .hx-badge--error {
+    --hx-badge-fg: var(--hx-fg);
+    --hx-badge-bg: color-mix(in oklab, var(--hx-tone) 12%, var(--hx-surface));
+    --hx-badge-line: color-mix(in oklab, var(--hx-tone) 45%, transparent);
+  }
+  .hx-badge--success { --hx-tone: var(--hx-success); }
+  .hx-badge--warning { --hx-tone: var(--hx-warning); }
+  .hx-badge--info { --hx-tone: var(--hx-info); }
+  .hx-badge--error { --hx-tone: var(--hx-error); }
+  .hx-badge__dot {
+    width: 0.5em;
+    height: 0.5em;
+    flex: none;
+    background: var(--hx-tone, var(--hx-accent));
+  }
+
+  /* Tag: lżejszy niż plakietka, zwykły krój, do słów kluczowych. */
+  .hx-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    min-height: 1.75rem;
+    padding: 0.2em 0.7em;
+    font-size: var(--hx-text-small);
+    line-height: 1.2;
+    color: var(--hx-fg-muted);
+    border: var(--hx-border-hairline) solid var(--hx-line);
+    border-radius: var(--hx-radius-2);
+    text-decoration: none;
+  }
+  /* Tag jako link: 28 px wysokości, pole dotyku 44 px (::after).
+     Najechanie i fokus: złoto 14% wypełnia tag od lewej (::before, jak .hx-fill). */
+  a.hx-tag {
+    position: relative;
+    isolation: isolate;
+    transition:
+      color var(--hx-duration-instant) linear,
+      border-color var(--hx-duration-instant) linear;
+  }
+  a.hx-tag::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: color-mix(in oklab, var(--hx-accent) 14%, transparent);
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+    transition: clip-path var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  a.hx-tag::after {
+    content: "";
+    position: absolute;
+    inset: -8px 0;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    a.hx-tag:hover {
+      color: var(--hx-fg);
+      border-color: var(--hx-line-accent);
+    }
+    a.hx-tag:hover::before {
+      clip-path: inset(0);
+      transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+    }
+  }
+  a.hx-tag:is(:focus-visible, .is-hover) {
+    color: var(--hx-fg);
+    border-color: var(--hx-line-accent);
+  }
+  a.hx-tag:is(:focus-visible, .is-hover)::before {
+    clip-path: inset(0);
+    transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.5 Karty: solid, glass, media, interactive
+     ------------------------------------------------------------------------ */
+  .hx-card {
+    --hx-cut: var(--hx-chamfer-lg);
+    --hx-card-pad: clamp(1.25rem, 1rem + 1vw, 2rem);
+    --hx-chamfer-edge: var(--hx-line);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--hx-space-3);
+    padding: var(--hx-card-pad);
+    color: var(--hx-fg);
+    background-color: var(--hx-surface);
+    border: var(--hx-border-hairline) solid var(--hx-line);
+    overflow: hidden;
+  }
+  .hx-card__kicker {
+    font-family: var(--hx-font-condensed);
+    font-size: var(--hx-text-label);
+    font-weight: var(--hx-weight-semibold);
+    letter-spacing: var(--hx-tracking-caps);
+    text-transform: uppercase;
+    color: var(--hx-accent-text);
+  }
+  .hx-card__title {
+    font-size: var(--hx-text-h4);
+    font-weight: var(--hx-weight-regular);
+    line-height: var(--hx-leading-h4);
+    letter-spacing: var(--hx-tracking-h4);
+  }
+  .hx-card__body {
+    color: var(--hx-fg-muted);
+    font-size: var(--hx-text-small);
+    line-height: var(--hx-leading-small);
+  }
+  .hx-card__footer {
+    margin-top: auto;
+    padding-top: var(--hx-space-3);
+  }
+  /* Szkło tylko nad zdjęciem lub wideo, zawsze w motywie ciemnym:
+     kontener zdjęcia dostaje .hx-theme-dark, także na stronie w motywie jasnym. */
+  .hx-card--glass {
+    --hx-chamfer-edge: var(--hx-glass-line);
+    background-color: var(--hx-glass-bg);
+    border-color: var(--hx-glass-line);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+  .hx-card--media {
+    padding: 0;
+    gap: 0;
+  }
+  .hx-card__media {
+    aspect-ratio: var(--hx-media-ratio, 16 / 9);
+    background: var(--hx-bg-deep);
+    border-bottom: var(--hx-border-hairline) solid var(--hx-line);
+    overflow: hidden;
+  }
+  .hx-card__media > img,
+  .hx-card__media > video,
+  .hx-card__media > picture > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hx-card--media .hx-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hx-space-3);
+    padding: var(--hx-card-pad);
+  }
+  /* Karta klikalna (wersja 1.1): bez uniesienia, cienia i poświaty. Najechanie albo
+     fokus rysuje złotą linię włosową wzdłuż górnej krawędzi, od lewej do ściętego rogu
+     (::before, clip-path, 320 ms --hx-ease-enter; powrót 200 ms). Fokus z klawiatury
+     dokłada pierścień na całej karcie. */
+  .hx-card--interactive::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 1;
+    height: var(--hx-border-hairline);
+    background-color: var(--hx-accent);
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+    transition: clip-path var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-card--interactive:hover::before {
+      clip-path: inset(0);
+      transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+    }
+  }
+  .hx-card--interactive:focus-within::before,
+  .hx-card--interactive.is-hover::before {
+    clip-path: inset(0);
+    transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+  }
+  .hx-card--interactive:has(.hx-card__link:focus-visible) {
+    outline: var(--hx-border-focus) solid var(--hx-focus);
+    outline-offset: var(--hx-border-focus-offset);
+  }
+  .hx-card--interactive .hx-card__link:focus-visible {
+    outline: none;
+  }
+  /* Cała karta klikalna: <a class="hx-card__link" href="..."> w tytule rozciąga się na kartę. */
+  .hx-card__link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .hx-card__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ------------------------------------------------------------------------
+     6.6 Formularze
+     ------------------------------------------------------------------------ */
+  .hx-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hx-space-2);
+  }
+  .hx-field > .hx-label {
+    color: var(--hx-fg-muted);
+  }
+  .hx-input,
+  .hx-textarea,
+  .hx-select {
+    --hx-cut: var(--hx-chamfer-md);
+    --hx-chamfer-edge: var(--hx-field-line, var(--hx-line-strong));
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--hx-fg);
+    background-color: var(--hx-input-bg);
+    border: var(--hx-border-hairline) solid var(--hx-field-line, var(--hx-line-strong));
+    /* Linia fokusu (wersja 1.1): 2 px w --hx-accent-text przy dolnej krawędzi, rysowana od
+       lewej przesunięciem gradientu 200% (background-position), 320 ms --hx-ease-enter. */
+    --hx-field-draw: linear-gradient(to right, var(--hx-accent-text) 50%, transparent 50%);
+    --hx-field-pos: 100% 100%;
+    background-image: var(--hx-field-draw);
+    background-size: 200% 2px;
+    background-position: var(--hx-field-pos);
+    background-repeat: no-repeat;
+    transition:
+      border-color var(--hx-duration-instant) linear,
+      background-position var(--hx-duration-fast) var(--hx-ease-standard);
+    appearance: none;
+  }
+  .hx-textarea {
+    min-height: 8rem;
+    resize: vertical;
+  }
+  .hx-input::placeholder,
+  .hx-textarea::placeholder {
+    color: var(--hx-fg-subtle);
+    opacity: 1;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-input:hover,
+    .hx-textarea:hover,
+    .hx-select:hover {
+      --hx-field-line: var(--hx-fg-subtle);
+    }
+  }
+  .hx-input.is-hover,
+  .hx-textarea.is-hover,
+  .hx-select.is-hover {
+    --hx-field-line: var(--hx-fg-subtle);
+  }
+  .hx-input:focus-visible,
+  .hx-textarea:focus-visible,
+  .hx-select:focus-visible,
+  .hx-input.is-focus,
+  .hx-textarea.is-focus,
+  .hx-select.is-focus {
+    --hx-field-line: var(--hx-accent-text);
+    --hx-field-pos: 0 100%;
+    outline-offset: 2px;
+    transition:
+      border-color var(--hx-duration-instant) linear,
+      background-position var(--hx-duration-base) var(--hx-ease-enter);
+  }
+  /* Przeglądarki bez corner-shape: skośny odcinek obramowania (sekcja 6.1) jest gradientem
+     w background-image, więc składamy go z linią fokusu w jedną listę warstw. */
+  @supports not (corner-shape: bevel) {
+    .hx-input,
+    .hx-textarea {
+      background-image:
+        var(--hx-field-draw),
+        linear-gradient(to bottom left, transparent 50%, var(--hx-chamfer-edge) 50%, var(--hx-chamfer-edge) calc(50% + 1px), transparent calc(50% + 1px));
+      background-size: 200% 2px, var(--hx-cut-x) var(--hx-cut-y);
+      background-position: var(--hx-field-pos), top right;
+    }
+  }
+  .hx-input[aria-invalid="true"],
+  .hx-textarea[aria-invalid="true"],
+  .hx-select[aria-invalid="true"] {
+    --hx-field-line: var(--hx-error);
+  }
+  .hx-input:disabled,
+  .hx-textarea:disabled,
+  .hx-select:disabled {
+    opacity: var(--hx-opacity-disabled);
+    cursor: not-allowed;
+  }
+  /* Strzałka listy rysowana gradientami, więc przyjmuje kolor z motywu. */
+  .hx-select {
+    padding-right: 2.75rem;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--hx-fg-muted) 50%),
+      linear-gradient(135deg, var(--hx-fg-muted) 50%, transparent 50%),
+      var(--hx-field-draw);
+    background-position:
+      calc(100% - 1.3rem) 50%,
+      calc(100% - 1rem) 50%,
+      var(--hx-field-pos);
+    background-size: 0.3rem 0.3rem, 0.3rem 0.3rem, 200% 2px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+  .hx-help {
+    font-size: var(--hx-text-small);
+    line-height: var(--hx-leading-small);
+    color: var(--hx-fg-subtle);
+  }
+  .hx-error-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+    font-size: var(--hx-text-small);
+    line-height: var(--hx-leading-small);
+    color: var(--hx-error);
+  }
+  .hx-error-text::before {
+    content: "";
+    flex: none;
+    width: 0.5em;
+    height: 0.5em;
+    margin-top: 0.5em;
+    background: currentColor;
+  }
+
+  /* Pole wyboru i przycisk opcji. Etykieta .hx-choice daje cel 44 px. */
+  .hx-choice {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    cursor: pointer;
+    line-height: 1.35;
+  }
+  .hx-check,
+  .hx-radio {
+    position: relative;
+    display: inline-grid;
+    place-content: center;
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    background-color: var(--hx-input-bg);
+    border: var(--hx-border-hairline) solid var(--hx-field-line, var(--hx-line-strong));
+    appearance: none;
+    cursor: pointer;
+    transition:
+      background-color var(--hx-duration-fast) var(--hx-ease-standard),
+      border-color var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  .hx-check {
+    border-radius: var(--hx-radius-2);
+  }
+  .hx-radio {
+    border-radius: 50%;
+  }
+  /* Znacznik rysuje się od lewej (wersja 1.1, bez skalowania): kształt daje clip-path,
+     a gradient 200% przesuwa się background-position, 200 ms --hx-ease-enter. */
+  .hx-check::before {
+    content: "";
+    width: 0.75rem;
+    height: 0.75rem;
+    background-image: linear-gradient(to right, var(--hx-on-accent) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    clip-path: polygon(14% 44%, 0 58%, 38% 96%, 100% 22%, 86% 8%, 38% 68%);
+    transition: background-position var(--hx-duration-fast) var(--hx-ease-enter);
+  }
+  .hx-radio::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--hx-on-accent);
+    opacity: 0;
+    transition: opacity var(--hx-duration-instant) linear;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-check:hover,
+    .hx-radio:hover {
+      border-color: var(--hx-fg-subtle);
+    }
+  }
+  .hx-check.is-hover,
+  .hx-radio.is-hover {
+    border-color: var(--hx-fg-subtle);
+  }
+  /* Wypełnienie złotem, obrys w --hx-accent-text: w jasnym motywie złoto ma na Ivory 1,9:1,
+     brąz 5,4:1 (WCAG 1.4.11 wymaga 3:1 dla stanu kontrolki). W ciemnym oba to złoto. */
+  .hx-check:checked,
+  .hx-radio:checked,
+  .hx-check:indeterminate {
+    background-color: var(--hx-accent);
+    border-color: var(--hx-accent-text);
+  }
+  .hx-check:checked::before,
+  .hx-check:indeterminate::before {
+    background-position: 0 0;
+  }
+  .hx-radio:checked::before {
+    opacity: 1;
+  }
+  .hx-check:indeterminate::before {
+    clip-path: inset(40% 10%);
+  }
+  .hx-check:disabled,
+  .hx-radio:disabled,
+  .hx-switch:disabled {
+    opacity: var(--hx-opacity-disabled);
+    cursor: not-allowed;
+  }
+
+  /* Przełącznik: <input type="checkbox" role="switch" class="hx-switch">
+     Włączenie: złoto wypełnia tor od lewej (gradient 200%, background-position), a uchwyt
+     jedzie razem z krawędzią wypełnienia (translate). Oba 200 ms --hx-ease-standard. */
+  .hx-switch {
+    --hx-cut: var(--hx-chamfer-sm);
+    position: relative;
+    flex: none;
+    width: 2.75rem;
+    height: 1.5rem;
+    margin: 0;
+    background-color: var(--hx-surface-2);
+    background-image: linear-gradient(to right, var(--hx-accent) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    border: var(--hx-border-hairline) solid var(--hx-field-line, var(--hx-line-strong));
+    appearance: none;
+    cursor: pointer;
+    transition:
+      background-position var(--hx-duration-fast) var(--hx-ease-standard),
+      border-color var(--hx-duration-instant) linear;
+  }
+  .hx-switch::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(1.5rem - 8px);
+    height: calc(1.5rem - 8px);
+    background: var(--hx-fg-muted);
+    transition:
+      translate var(--hx-duration-fast) var(--hx-ease-standard),
+      background-color var(--hx-duration-instant) linear;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-switch:hover:not(:checked, :disabled) {
+      border-color: var(--hx-fg-subtle);
+    }
+  }
+  .hx-switch.is-hover:not(:checked) {
+    border-color: var(--hx-fg-subtle);
+  }
+  .hx-switch:checked {
+    background-position: 0 0;
+    border-color: var(--hx-accent-text);
+  }
+  .hx-switch:checked::before {
+    background: var(--hx-on-accent);
+    translate: 1.25rem 0;
+  }
+
+  /* ------------------------------------------------------------------------
+     6.7 Alerty i notki
+     ------------------------------------------------------------------------ */
+  .hx-alert {
+    --hx-cut: var(--hx-chamfer-md);
+    --hx-tone: var(--hx-info);
+    --hx-chamfer-edge: color-mix(in oklab, var(--hx-tone) 40%, transparent);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 0.875rem;
+    padding: 1rem 1.25rem;
+    color: var(--hx-fg);
+    background-color: color-mix(in oklab, var(--hx-tone) 9%, var(--hx-surface));
+    border: var(--hx-border-hairline) solid color-mix(in oklab, var(--hx-tone) 40%, transparent);
+    border-left: 3px solid var(--hx-tone);
+    font-size: var(--hx-text-small);
+    line-height: var(--hx-leading-small);
+  }
+  .hx-alert--success { --hx-tone: var(--hx-success); }
+  .hx-alert--warning { --hx-tone: var(--hx-warning); }
+  .hx-alert--error { --hx-tone: var(--hx-error); }
+  .hx-alert--info { --hx-tone: var(--hx-info); }
+  .hx-alert__icon {
+    grid-row: span 2;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.1rem;
+    color: var(--hx-tone);
+  }
+  .hx-alert__title {
+    font-weight: var(--hx-weight-semibold);
+    font-size: var(--hx-text-body);
+    line-height: 1.35;
+  }
+  .hx-alert__body {
+    grid-column: 2;
+    color: var(--hx-fg-muted);
+  }
+  .hx-alert:not(:has(.hx-alert__icon)) {
+    grid-template-columns: 1fr;
+  }
+  .hx-alert:not(:has(.hx-alert__icon)) .hx-alert__body {
+    grid-column: 1;
+  }
+
+  /* Notka: neutralna uwaga redakcyjna ze złotą linią. */
+  .hx-note {
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    border-left: 1px solid var(--hx-accent);
+    color: var(--hx-fg-muted);
+    font-size: var(--hx-text-small);
+    line-height: var(--hx-leading-small);
+  }
+  .hx-note strong {
+    color: var(--hx-fg);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.8 Tabela
+     ------------------------------------------------------------------------ */
+  .hx-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hx-table {
+    width: 100%;
+    font-size: var(--hx-text-small);
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+    text-align: left;
+  }
+  .hx-table caption {
+    caption-side: bottom;
+    padding-top: var(--hx-space-3);
+    color: var(--hx-fg-subtle);
+    font-size: var(--hx-text-small);
+    text-align: left;
+  }
+  .hx-table th {
+    padding: 0.75rem 1rem 0.625rem 0;
+    font-family: var(--hx-font-condensed);
+    font-size: var(--hx-text-label);
+    font-weight: var(--hx-weight-semibold);
+    letter-spacing: var(--hx-tracking-caps);
+    text-transform: uppercase;
+    color: var(--hx-fg-muted);
+    border-bottom: var(--hx-border-hairline) solid var(--hx-line-accent);
+    vertical-align: bottom;
+    white-space: nowrap;
+  }
+  .hx-table td {
+    padding: 0.8rem 1rem 0.8rem 0;
+    border-bottom: var(--hx-border-hairline) solid var(--hx-line);
+    vertical-align: top;
+  }
+  .hx-table th:last-child,
+  .hx-table td:last-child {
+    padding-right: 0;
+  }
+  .hx-table tbody tr {
+    transition: background-color var(--hx-duration-instant) var(--hx-ease-standard);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-table--hover tbody tr:hover {
+      background-color: color-mix(in oklab, var(--hx-surface) 70%, transparent);
+    }
+  }
+  .hx-table--hover tbody tr.is-hover {
+    background-color: color-mix(in oklab, var(--hx-surface) 70%, transparent);
+  }
+  .hx-table--compact td {
+    padding-block: 0.45rem;
+  }
+  .hx-table .hx-num,
+  .hx-table td.hx-num,
+  .hx-table th.hx-num {
+    text-align: right;
+  }
+
+  /* ------------------------------------------------------------------------
+     6.9 Nawigacja: pasek, okruszki, zakładki
+     ------------------------------------------------------------------------ */
+  .hx-navbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--hx-z-header);
+    background-color: color-mix(in oklab, var(--hx-bg) 78%, transparent);
+    border-bottom: var(--hx-border-hairline) solid var(--hx-line);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+  }
+  .hx-navbar__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--hx-space-6);
+    min-height: 4.5rem;
+  }
+  .hx-navbar__brand {
+    display: inline-flex;
+    align-items: center;
+    flex: none;
+    color: var(--hx-fg);
+    text-decoration: none;
+  }
+  /* Logo poziome: min. 140 px szerokości na ekranie i 25 mm w druku (rozdział Logo).
+     Gdzie nie ma miejsca, sam sygnet: .hx-navbar__brand--sygnet, min. 24 px wysokości. */
+  .hx-navbar__brand svg,
+  .hx-navbar__brand img {
+    width: 8.75rem;
+    height: auto;
+  }
+  .hx-navbar__brand--sygnet svg,
+  .hx-navbar__brand--sygnet img {
+    width: auto;
+    height: 2.25rem;
+  }
+  .hx-navbar__links {
+    display: flex;
+    align-items: center;
+    gap: var(--hx-space-1);
+    margin-left: auto;
+    padding: 0;
+    list-style: none;
+  }
+  .hx-navbar__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--hx-fg-muted);
+    text-decoration: none;
+    position: relative;
+    transition: color var(--hx-duration-instant) linear;
+  }
+  /* Najechanie i fokus: tekst rozjaśnia się do bieli, pod nim linia włosowa w kolorze tekstu
+     rysuje się od lewej (::before, clip-path, 320 ms). Bieżąca strona: stała złota linia (::after). */
+  .hx-navbar__links a::before {
+    content: "";
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.5rem;
+    height: 1px;
+    background: currentColor;
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+    transition: clip-path var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-navbar__links a:hover {
+      color: var(--hx-fg);
+    }
+    .hx-navbar__links a:not([aria-current="page"]):hover::before {
+      clip-path: inset(0);
+      transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+    }
+  }
+  .hx-navbar__links a:is(:focus-visible, .is-hover) {
+    color: var(--hx-fg);
+  }
+  .hx-navbar__links a:not([aria-current="page"]):is(:focus-visible, .is-hover)::before {
+    clip-path: inset(0);
+    transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+  }
+  .hx-navbar__links a[aria-current="page"] {
+    color: var(--hx-fg);
+  }
+  .hx-navbar__links a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.5rem;
+    height: 1px;
+    background: var(--hx-accent);
+  }
+  .hx-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--hx-space-2);
+  }
+  .hx-navbar__toggle {
+    display: none;
+  }
+  @media (max-width: 767.98px) {
+    .hx-navbar__toggle {
+      display: inline-flex;
+      margin-left: auto;
+    }
+    .hx-navbar__links {
+      display: none;
+    }
+    .hx-navbar[data-open] .hx-navbar__links {
+      position: absolute;
+      inset: 100% 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding: var(--hx-space-3) var(--hx-container-gutter) var(--hx-space-6);
+      background: var(--hx-bg);
+      border-bottom: var(--hx-border-hairline) solid var(--hx-line);
+    }
+  }
+
+  .hx-breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.625rem;
+    padding: 0;
+    list-style: none;
+    font-size: var(--hx-text-small);
+    color: var(--hx-fg-subtle);
+  }
+  .hx-breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .hx-breadcrumbs li + li::before {
+    content: "/";
+    color: var(--hx-line-strong);
+  }
+  /* Linia rysowana od lewej jak w .hx-link (sekcja 6.3), bez linii spoczynkowej. */
+  .hx-breadcrumbs a {
+    --hx-link-line: transparent;
+    color: var(--hx-fg-muted);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-breadcrumbs a:hover {
+      color: var(--hx-fg);
+    }
+  }
+  .hx-breadcrumbs a:is(:focus-visible, .is-hover) {
+    color: var(--hx-fg);
+  }
+  .hx-breadcrumbs [aria-current="page"] {
+    color: var(--hx-fg);
+  }
+
+  /* Zakładki: role="tablist" / role="tab" aria-selected / role="tabpanel". Zachowanie w JS strony. */
+  .hx-tabs__list {
+    --hx-cut: 0px;
+    display: flex;
+    gap: var(--hx-space-1);
+    overflow-x: auto;
+    border-bottom: var(--hx-border-hairline) solid var(--hx-line);
+    scrollbar-width: none;
+  }
+  .hx-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    font-size: 0.9375rem;
+    font-weight: var(--hx-weight-medium);
+    color: var(--hx-fg-muted);
+    white-space: nowrap;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    transition: color var(--hx-duration-instant) linear;
+  }
+  .hx-tab[aria-selected="true"] {
+    color: var(--hx-fg);
+  }
+  /* Najechanie: linia włosowa rysuje się od lewej (::before). Wybór: złoty wskaźnik 2 px
+     (::after) odsłania się od lewej w 320 ms; poprzedni znika od razu, żeby w ruchu była
+     jedna rzecz. Bez scale. */
+  .hx-tab::before,
+  .hx-tab::after {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0;
+    height: 1px;
+    background: var(--hx-line-strong);
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+    transition: clip-path var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  .hx-tab::after {
+    bottom: -1px;
+    height: 2px;
+    background: var(--hx-accent);
+    transition: none;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-tab:hover {
+      color: var(--hx-fg);
+    }
+    .hx-tab:not([aria-selected="true"]):hover::before {
+      clip-path: inset(0);
+      transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+    }
+  }
+  .hx-tab.is-hover {
+    color: var(--hx-fg);
+  }
+  .hx-tab:not([aria-selected="true"]).is-hover::before {
+    clip-path: inset(0);
+  }
+  .hx-tab[aria-selected="true"]::after {
+    clip-path: inset(0);
+    transition: clip-path var(--hx-duration-base) var(--hx-ease-enter);
+  }
+  .hx-tab:focus-visible,
+  .hx-tab.is-focus {
+    outline-offset: -2px;
+  }
+  .hx-tabpanel {
+    padding-top: var(--hx-space-6);
+  }
+
+  /* Wspólny wskaźnik, który jedzie (translate): lista o równych kolumnach z elementem
+     <span class="hx-tabs__ink" aria-hidden="true"></span> na końcu, bez JS.
+     <div class="hx-tabs__list hx-tabs__list--ink" role="tablist">…zakładki…<span class="hx-tabs__ink"></span></div>
+     Wskaźnik przesuwa się o szerokość zakładki, 320 ms --hx-ease-enter. Do 6 zakładek. */
+  .hx-tabs__list--ink {
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 0;
+    width: max-content;
+    max-width: 100%;
+    overflow: visible;
+  }
+  .hx-tabs__list--ink .hx-tab {
+    justify-content: center;
+  }
+  .hx-tabs__list--ink .hx-tab::after {
+    display: none;
+  }
+  .hx-tabs__ink {
+    --hx-tabs-n: 4;
+    --hx-tabs-i: 0;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: calc(100% / var(--hx-tabs-n));
+    height: 2px;
+    padding-inline: 1rem;
+    background-color: var(--hx-accent);
+    background-clip: content-box;
+    translate: calc(var(--hx-tabs-i) * 100%) 0;
+    transition: translate var(--hx-duration-base) var(--hx-ease-enter);
+    pointer-events: none;
+  }
+  .hx-tabs__list--ink:has(> .hx-tab:nth-child(2) + .hx-tabs__ink) > .hx-tabs__ink { --hx-tabs-n: 2; }
+  .hx-tabs__list--ink:has(> .hx-tab:nth-child(3) + .hx-tabs__ink) > .hx-tabs__ink { --hx-tabs-n: 3; }
+  .hx-tabs__list--ink:has(> .hx-tab:nth-child(5) + .hx-tabs__ink) > .hx-tabs__ink { --hx-tabs-n: 5; }
+  .hx-tabs__list--ink:has(> .hx-tab:nth-child(6) + .hx-tabs__ink) > .hx-tabs__ink { --hx-tabs-n: 6; }
+  .hx-tabs__list--ink:has(> .hx-tab:nth-child(2)[aria-selected="true"]) > .hx-tabs__ink { --hx-tabs-i: 1; }
+  .hx-tabs__list--ink:has(> .hx-tab:nth-child(3)[aria-selected="true"]) > .hx-tabs__ink { --hx-tabs-i: 2; }
+  .hx-tabs__list--ink:has(> .hx-tab:nth-child(4)[aria-selected="true"]) > .hx-tabs__ink { --hx-tabs-i: 3; }
+  .hx-tabs__list--ink:has(> .hx-tab:nth-child(5)[aria-selected="true"]) > .hx-tabs__ink { --hx-tabs-i: 4; }
+  .hx-tabs__list--ink:has(> .hx-tab:nth-child(6)[aria-selected="true"]) > .hx-tabs__ink { --hx-tabs-i: 5; }
+
+  /* ------------------------------------------------------------------------
+     6.10 Stopka strony
+     ------------------------------------------------------------------------ */
+  .hx-footer {
+    padding-block: var(--hx-space-16) var(--hx-space-8);
+    color: var(--hx-fg-muted);
+    background-color: var(--hx-bg-deep);
+    border-top: var(--hx-border-hairline) solid var(--hx-line);
+    font-size: var(--hx-text-small);
+  }
+  .hx-footer a {
+    color: var(--hx-fg-muted);
+    text-decoration: none;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hx-footer a:hover {
+      color: var(--hx-fg);
+    }
+  }
+  .hx-footer a:is(:focus-visible, .is-hover) {
+    color: var(--hx-fg);
+  }
+  .hx-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+    gap: var(--hx-space-8);
+  }
+  .hx-footer__title {
+    margin-bottom: var(--hx-space-3);
+    font-family: var(--hx-font-condensed);
+    font-size: var(--hx-text-label);
+    font-weight: var(--hx-weight-semibold);
+    letter-spacing: var(--hx-tracking-caps);
+    text-transform: uppercase;
+    color: var(--hx-fg);
+  }
+  .hx-footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--hx-space-3);
+    margin-top: var(--hx-space-12);
+    padding-top: var(--hx-space-6);
+    border-top: var(--hx-border-hairline) solid var(--hx-line);
+    color: var(--hx-fg-subtle);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.11 Cytat
+     ------------------------------------------------------------------------ */
+  .hx-quote {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hx-space-6);
+    padding-left: clamp(1.25rem, 3vw, 2.5rem);
+    border-left: 1px solid var(--hx-accent);
+  }
+  .hx-quote blockquote,
+  .hx-quote__text {
+    font-size: var(--hx-text-h3);
+    font-weight: var(--hx-weight-light);
+    line-height: 1.3;
+    letter-spacing: var(--hx-tracking-h3);
+    text-wrap: balance;
+  }
+  .hx-quote figcaption,
+  .hx-quote__author {
+    font-family: var(--hx-font-condensed);
+    font-size: var(--hx-text-label);
+    font-weight: var(--hx-weight-semibold);
+    letter-spacing: var(--hx-tracking-caps);
+    text-transform: uppercase;
+    color: var(--hx-fg-muted);
+  }
+  .hx-quote cite {
+    font-style: normal;
+    color: var(--hx-accent-text);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.12 Statystyka (liczba)
+     ------------------------------------------------------------------------ */
+  .hx-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hx-space-2);
+    padding-top: var(--hx-space-4);
+    border-top: var(--hx-border-hairline) solid var(--hx-line-accent);
+  }
+  .hx-stat__value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.15em;
+    font-family: var(--hx-font-condensed);
+    font-size: var(--hx-text-h1);
+    font-weight: var(--hx-weight-medium);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+    color: var(--hx-fg);
+  }
+  .hx-stat__unit {
+    font-size: 0.45em;
+    font-weight: var(--hx-weight-medium);
+    letter-spacing: var(--hx-tracking-caps-tight);
+    text-transform: uppercase;
+    color: var(--hx-accent-text);
+  }
+  .hx-stat__label {
+    font-size: var(--hx-text-small);
+    line-height: var(--hx-leading-small);
+    color: var(--hx-fg-muted);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.13 Linia podziału (hairline)
+     ------------------------------------------------------------------------ */
+  .hx-divider {
+    width: 100%;
+    height: 0;
+    border: 0;
+    border-top: var(--hx-border-hairline) solid var(--hx-line);
+  }
+  .hx-divider--gold {
+    border-top-color: var(--hx-line-accent);
+  }
+  .hx-divider--fade {
+    height: 1px;
+    border: 0;
+    background: var(--hx-gradient-gold-line);
+  }
+  .hx-divider--vertical {
+    width: 0;
+    height: auto;
+    align-self: stretch;
+    border-top: 0;
+    border-left: var(--hx-border-hairline) solid var(--hx-line);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.14 Heksagon: maska na zdjęcia i awatary
+     Orientacja jak w sygnecie: wierzchołek u góry, pionowe boki. Proporcja √3 : 2.
+     ------------------------------------------------------------------------ */
+  .hx-hex {
+    --hx-hex: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    aspect-ratio: 0.866 / 1;
+    clip-path: var(--hx-hex);
+    overflow: hidden;
+    background: var(--hx-surface);
+  }
+  .hx-hex > img,
+  .hx-hex > video,
+  .hx-hex > picture > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Ramka: złota linia wokół heksagonu (1,5 px) */
+  .hx-hex--frame {
+    padding: 1.5px;
+    background: var(--hx-accent);
+  }
+  .hx-hex--frame > * {
+    clip-path: var(--hx-hex);
+  }
+  .hx-hex--flat {
+    --hx-hex: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    aspect-ratio: 1 / 0.866;
+  }
+
+  /* ------------------------------------------------------------------------
+     6.15 Wskaźnik REC / LIVE (Signal Red, pulsowanie; bez ruchu przy reduced motion)
+     <span class="hx-rec"><span class="hx-rec__dot"></span>REC</span>
+     Trzy pulsy (4,8 s), potem kropka świeci stale (WCAG 2.2.2). Ciągły puls w produkcji
+     wymaga przycisku pauzy.
+     ------------------------------------------------------------------------ */
+  .hx-rec {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--hx-font-condensed);
+    font-size: var(--hx-text-label);
+    font-weight: var(--hx-weight-bold);
+    line-height: 1;
+    letter-spacing: var(--hx-tracking-caps-wide);
+    text-transform: uppercase;
+    color: var(--hx-fg);
+  }
+  .hx-rec__dot {
+    position: relative;
+    width: 0.625em;
+    height: 0.625em;
+    border-radius: 50%;
+    background: var(--hx-signal);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--hx-signal) 60%, transparent);
+    animation: hx-rec 1.6s var(--hx-ease-standard) 3;
+  }
+  .hx-rec--live {
+    padding: 0.35em 0.6em 0.3em;
+    border: var(--hx-border-hairline) solid color-mix(in oklab, var(--hx-signal) 55%, transparent);
+    border-radius: var(--hx-radius-2);
+  }
+  @keyframes hx-rec {
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--hx-signal) 55%, transparent);
+    }
+    50% {
+      opacity: 0.35;
+      box-shadow: 0 0 0 0.45em color-mix(in oklab, var(--hx-signal) 0%, transparent);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hx-rec__dot {
+      animation: none;
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     6.16 Oznaczenie AI (AI Act, art. 50)
+     <span class="hx-ai"><span class="hx-ai__mark">AI</span>Materiał powstał z pomocą AI</span>
+     Wariant --overlay na zdjęcie lub wideo (szkło), --compact tylko znak.
+     Nad obrazem używaj --overlay albo hx-theme-dark: wariant bazowy bierze --hx-fg i --hx-surface,
+     więc w motywie jasnym dałby ciemny tekst na ciemnym kadrze.
+     ------------------------------------------------------------------------ */
+  .hx-ai {
+    --hx-cut: var(--hx-chamfer-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+    padding: 0.3em 0.75em 0.3em 0.3em;
+    font-size: var(--hx-text-label);
+    font-weight: var(--hx-weight-medium);
+    line-height: 1.2;
+    color: var(--hx-fg);
+    background-color: var(--hx-surface);
+    border: var(--hx-border-hairline) solid var(--hx-line-strong);
+  }
+  .hx-ai__mark {
+    display: inline-grid;
+    place-content: center;
+    min-width: 1.9em;
+    height: 1.6em;
+    padding: 0 0.3em;
+    font-family: var(--hx-font-condensed);
+    font-weight: var(--hx-weight-bold);
+    letter-spacing: 0.06em;
+    color: var(--hx-on-accent);
+    background: var(--hx-accent);
+  }
+  .hx-ai--overlay {
+    color: #fff;
+    background-color: rgb(10 10 12 / 0.62);
+    border-color: rgb(255 255 255 / 0.16);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+  .hx-ai--compact {
+    padding: 0.3em;
+  }
+
+  /* ------------------------------------------------------------------------
+     6.17 Szkło: tylko nad zdjęciem lub wideo
+     ------------------------------------------------------------------------ */
+  .hx-glass {
+    background-color: var(--hx-glass-bg);
+    border: var(--hx-border-hairline) solid var(--hx-glass-line);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.18 Ziarno filmowe: delikatny szum na dużych płaszczyznach
+     Element dostaje warstwę ::after; zawartość zostaje nad ziarnem.
+     ------------------------------------------------------------------------ */
+  .hx-grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .hx-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: var(--hx-opacity-grain);
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+  }
+
+  /* ------------------------------------------------------------------------
+     6.19 Wzory: plaster heksagonu i siatka izometryczna (4–8% krycia)
+     Kształt w masce SVG, kolor ze zmiennej, więc działa w obu motywach.
+     ------------------------------------------------------------------------ */
+  .hx-pattern-hex,
+  .hx-pattern-iso {
+    position: relative;
+    isolation: isolate;
+  }
+  .hx-pattern-hex::before,
+  .hx-pattern-iso::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--hx-pattern-color, var(--hx-accent));
+    opacity: var(--hx-pattern-opacity, var(--hx-opacity-pattern));
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+  }
+  .hx-pattern-hex::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='55.426' height='96' viewBox='0 0 55.426 96'%3E%3Cpath d='M27.713 0v16M27.713 16L0 32v32l27.713 16 27.713-16V32zM27.713 80v16' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='55.426' height='96' viewBox='0 0 55.426 96'%3E%3Cpath d='M27.713 0v16M27.713 16L0 32v32l27.713 16 27.713-16V32zM27.713 80v16' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E");
+    -webkit-mask-size: var(--hx-pattern-size, 55.426px 96px);
+    mask-size: var(--hx-pattern-size, 55.426px 96px);
+  }
+  .hx-pattern-iso::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='55.426' height='32' viewBox='0 0 55.426 32'%3E%3Cpath d='M.5 0v32M27.713 0v32M0 0l55.426 32M0 32L55.426 0' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='55.426' height='32' viewBox='0 0 55.426 32'%3E%3Cpath d='M.5 0v32M27.713 0v32M0 0l55.426 32M0 32L55.426 0' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E");
+    -webkit-mask-size: var(--hx-pattern-size, 55.426px 32px);
+    mask-size: var(--hx-pattern-size, 55.426px 32px);
+  }
+
+  /* ------------------------------------------------------------------------
+     6.20 Link pomijania nawigacji
+     ------------------------------------------------------------------------ */
+  .hx-skip {
+    position: fixed;
+    top: var(--hx-space-3);
+    left: var(--hx-space-3);
+    z-index: calc(var(--hx-z-toast) + 1);
+    padding: 0.75rem 1.25rem;
+    font-weight: var(--hx-weight-medium);
+    color: var(--hx-on-accent);
+    background: var(--hx-accent);
+    text-decoration: none;
+    transform: translateY(-200%);
+    transition: transform var(--hx-duration-fast) var(--hx-ease-standard);
+  }
+  .hx-skip:focus {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   7. Narzędzia (utilities)
+   ========================================================================== */
+
+@layer hx.utilities {
+  .hx-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+  .hx-display {
+    font-size: var(--hx-text-display);
+    font-weight: var(--hx-weight-extralight);
+    line-height: var(--hx-leading-display);
+    letter-spacing: var(--hx-tracking-display);
+  }
+  .hx-h1 { font-size: var(--hx-text-h1); line-height: var(--hx-leading-h1); letter-spacing: var(--hx-tracking-h1); font-weight: var(--hx-weight-light); }
+  .hx-h2 { font-size: var(--hx-text-h2); line-height: var(--hx-leading-h2); letter-spacing: var(--hx-tracking-h2); font-weight: var(--hx-weight-light); }
+  .hx-h3 { font-size: var(--hx-text-h3); line-height: var(--hx-leading-h3); letter-spacing: var(--hx-tracking-h3); font-weight: var(--hx-weight-regular); }
+  .hx-h4 { font-size: var(--hx-text-h4); line-height: var(--hx-leading-h4); letter-spacing: var(--hx-tracking-h4); font-weight: var(--hx-weight-medium); }
+  .hx-lead { font-size: var(--hx-text-lead); line-height: var(--hx-leading-lead); font-weight: var(--hx-weight-light); color: var(--hx-fg-muted); }
+  .hx-small { font-size: var(--hx-text-small); line-height: var(--hx-leading-small); }
+  .hx-caps {
+    font-family: var(--hx-font-condensed);
+    font-weight: var(--hx-weight-semibold);
+    letter-spacing: var(--hx-tracking-caps);
+    text-transform: uppercase;
+  }
+  .hx-mono { font-family: var(--hx-font-mono); font-variant-ligatures: none; }
+  .hx-num { font-variant-numeric: tabular-nums; }
+  .hx-balance { text-wrap: balance; }
+  .hx-pretty { text-wrap: pretty; }
+  .hx-nowrap { white-space: nowrap; }
+
+  .hx-text-fg { color: var(--hx-fg); }
+  .hx-text-muted { color: var(--hx-fg-muted); }
+  .hx-text-subtle { color: var(--hx-fg-subtle); }
+  .hx-text-accent { color: var(--hx-accent-text); }
+  .hx-text-signal { color: var(--hx-signal-text); }
+
+  .hx-bg { background-color: var(--hx-bg); }
+  .hx-bg-deep { background-color: var(--hx-bg-deep); }
+  .hx-surface { background-color: var(--hx-surface); }
+  .hx-bg-gold-foil { background-image: var(--hx-gradient-gold); }
+
+  /* Złoty tekst gradientem: tylko duże stopnie (display, h1). */
+  .hx-text-gold-foil {
+    background-image: var(--hx-gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hx-glow { box-shadow: var(--hx-glow-gold); }
+  .hx-hairline { border: var(--hx-border-hairline) solid var(--hx-line); }
+  .hx-hairline-gold { border: var(--hx-border-hairline) solid var(--hx-line-accent); }
+}
+
+/* ==========================================================================
+   8. Druk: szkło i rozmycia nie przechodzą do PDF, więc zastępujemy je kryciem.
+   ========================================================================== */
+
+@media print {
+  @layer hx.utilities {
+    .hx-glass,
+    .hx-card--glass,
+    .hx-navbar,
+    .hx-ai--overlay {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background-color: color-mix(in oklab, var(--hx-surface) 90%, transparent);
+    }
+  }
+}

@@ -1,0 +1,3 @@
+[test]
+# pusty katalog domowy harnessów dla wszystkich testów (test/preload.ts)
+preload = ["./test/preload.ts"]

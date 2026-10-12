@@ -1,0 +1,29 @@
+# Projekt
+
+Wstęp.
+
+## Instalacja
+
+```bash
+# komentarz w bloku kodu
+npm install
+```
+
+Po instalacji uruchom testy.
+
+### Szczegóły
+
+Drobiazgi.
+
+## Prywatne
+
+<private>
+hasło do serwera
+drugi sekret
+</private>
+
+Dalej jawnie.
+
+## Użycie
+
+Tekst.

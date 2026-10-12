@@ -1,0 +1,21 @@
+public class Shader
+{
+    public static string Make(string name)
+    {
+        return @"Shader """ + name + @"""
+{
+}";
+    }
+
+#if UNITY_EDITOR
+    public void Other(int a)
+    {
+#else
+    public void Other()
+    {
+#endif
+        Make("x");
+    }
+
+    public void Last() { }
+}

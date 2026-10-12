@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": { "includes": ["src/**", "test/**"] },
+  "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2, "lineWidth": 130 },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": { "noNonNullAssertion": "off", "useTemplate": "off", "noParameterAssign": "off" },
+      "suspicious": { "noExplicitAny": "off", "noControlCharactersInRegex": "off", "noAssignInExpressions": "off" },
+      "complexity": { "noForEach": "off", "useLiteralKeys": "off" }
+    }
+  },
+  "javascript": { "formatter": { "quoteStyle": "double", "semicolons": "always" } }
+}

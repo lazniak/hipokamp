@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="noindex, nofollow">
+  <title>hipokamp</title>
+  <meta name="description" content="Viewer for the local long-term memory of Claude Code.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="assets/logo/favicon.ico" sizes="any">
+  <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/outfit-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/hexart.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="assets/boot.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="hx-skip" href="#main" data-i18n="nav.skip">Skip to content</a>
+
+  <header class="hx-navbar app-header">
+    <div class="hx-navbar__inner hx-container">
+      <div class="app-brand">
+        <a class="hx-navbar__brand hx-navbar__brand--sygnet app-brand__mark" href="https://hexart.io" target="_blank" rel="noopener noreferrer" aria-label="HEXART, hexart.io (opens in a new tab)" data-i18n-attr="aria-label:brand.hexart">
+          <svg viewBox="0 0 899.83 1039.02" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M735.14 354.83l-80.38 46.39l-202.89-117.14l82.32-47.54l200.95 116.03zM0 259.75v519.52l164.66 95.06v-189.02l80.39 46.41v189.03l204.86 118.27l449.91-259.75v-95.07l-449.91 259.75l-40.19-23.2v-378.04l-164.67-95.06v189l-80.39-46.41v-189.01l-82.33-47.52v-46.43l449.91-259.75l-82.33-47.53zM490.11 496.31v329.36l164.65-95.06v-234.3l80.38-46.41v234.3l164.69-95.07v-329.39l-285.25-164.67l-409.73 236.54z"/></svg>
+        </a>
+        <span class="app-brand__rule" aria-hidden="true"></span>
+        <a class="app-brand__name" href="#/dashboard">hipokamp</a>
+      </div>
+      <div class="hx-navbar__actions app-actions">
+        <span class="hx-badge hx-badge--warning app-live" id="live"><span class="hx-badge__dot" aria-hidden="true"></span><span class="app-live__text">Connecting</span></span>
+        <div class="app-lang" id="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:lang.label" hidden>
+          <button class="hx-tag hx-fill app-chip app-lang__btn" type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+          <button class="hx-tag hx-fill app-chip app-lang__btn" type="button" data-lang="pl" lang="pl" aria-label="Polski" aria-pressed="false">PL</button>
+        </div>
+        <label class="hx-choice app-theme">
+          <input class="hx-switch" type="checkbox" role="switch" id="theme-switch">
+          <span class="app-theme__label"><span data-i18n="theme.light">Light</span><span class="hx-sr-only"> <span data-i18n="theme.word">theme</span></span></span>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <nav class="app-nav" aria-label="Views" data-i18n-attr="aria-label:nav.label">
+    <div class="hx-container">
+      <ul class="app-nav__list" role="list">
+        <li><a class="app-nav__link" href="#/dashboard" data-nav="dashboard" data-i18n="nav.dashboard">Dashboard</a></li>
+        <li><a class="app-nav__link" href="#/strumien" data-nav="strumien"><span data-i18n="nav.stream">Stream</span><span class="app-nav__count" id="unseen" hidden></span></a></li>
+        <li><a class="app-nav__link" href="#/szukaj" data-nav="szukaj" data-i18n="nav.search">Search</a></li>
+        <li><a class="app-nav__link" href="#/sesje" data-nav="sesje" data-i18n="nav.sessions">Sessions</a></li>
+        <li><a class="app-nav__link" href="#/projekty" data-nav="projekty" data-i18n="nav.projects">Projects</a></li>
+        <li><a class="app-nav__link" href="#/praca" data-nav="praca" data-i18n="nav.work">Work in progress</a></li>
+        <li><a class="app-nav__link" href="#/statystyki" data-nav="statystyki" data-i18n="nav.stats">Stats</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="app-main" tabindex="-1">
+    <div class="hx-container app-view" id="view">
+      <noscript><p class="hx-alert hx-alert--warning" data-i18n="noscript.text">The viewer needs JavaScript to be enabled.</p></noscript>
+    </div>
+  </main>
+
+  <aside class="app-panel" id="panel" aria-labelledby="panel-title" data-open="false">
+    <div class="app-panel__bar">
+      <p class="hx-kicker" id="panel-kicker">Note</p>
+      <button class="hx-btn hx-btn--ghost hx-btn--icon app-panel__close" type="button" id="panel-close" aria-label="Close details" data-i18n-attr="aria-label:panel.close">
+        <svg class="app-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/hexart-ikony-sprite.svg#hx-i-zamknij"/></svg>
+      </button>
+    </div>
+    <div class="app-panel__body" id="panel-body"></div>
+  </aside>
+
+  <footer class="hx-footer app-footer">
+    <div class="hx-container">
+      <div class="app-footer__row">
+        <p>hipokamp <span id="app-version">0.1.0</span>. <span data-i18n="footer.local">Memory runs locally, with no paid APIs.</span></p>
+        <p class="app-footer__keys"><span data-i18n="footer.shortcuts">Shortcuts:</span> <kbd>/</kbd> <span data-i18n="footer.keySearch">search</span>, <kbd>Esc</kbd> <span data-i18n="footer.keyClose">closes details</span>.</p>
+      </div>
+      <p class="hx-footer__legal" data-i18n="footer.legal">HEXART Sp. z o.o., Aleja Zwycięstwa 96/98, 81-451&nbsp;Gdynia. Gdańsk-Północ District Court in Gdańsk, 8th Commercial Division of the National Court Register, KRS 0000863158, NIP 5882462201, REGON 387221630, share capital PLN&nbsp;5,000.</p>
+    </div>
+  </footer>
+
+  <div class="hx-sr-only" id="announcer" aria-live="polite" aria-atomic="true"></div>
+  <div class="app-toast" id="toast" role="status" aria-live="polite" data-open="false"></div>
+</body>
+</html>

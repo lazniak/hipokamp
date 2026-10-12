@@ -1,0 +1,11 @@
+interface Store {
+    fun get(name: String): String?
+    fun put(name: String, value: String)
+}
+
+data class Item(
+    val name: String,
+)
+
+class After {
+}

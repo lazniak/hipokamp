@@ -1,0 +1,13 @@
+package demo
+
+type Pool struct {
+	size int
+}
+
+func (p *Pool) Grow(n int) map[string]struct{} {
+	p.size += n
+	s := `}`
+	return map[string]struct{}{s: {}}
+}
+
+func helper() int { return 1 }

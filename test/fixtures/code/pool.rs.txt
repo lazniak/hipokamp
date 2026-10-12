@@ -1,0 +1,13 @@
+pub struct Pool<'a> {
+    name: &'a str,
+}
+
+impl<'a> Pool<'a> {
+    pub fn grow(&mut self) -> &'a str {
+        let s = r#"}"#;
+        let c = '}';
+        self.name
+    }
+}
+
+fn after() {}

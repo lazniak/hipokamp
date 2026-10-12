@@ -1,0 +1,47 @@
+{
+  "name": "hipokamp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Free, local long-term memory for Claude Code and other coding agents: capture without an LLM, hybrid search, recall while you work.",
+  "bin": {
+    "hipokamp": "src/cli.ts"
+  },
+  "scripts": {
+    "dev": "bun --watch src/worker/main.ts",
+    "worker": "bun src/worker/main.ts",
+    "demo": "bun scripts/demo.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src test",
+    "format": "biome format --write src test",
+    "build": "bun build src/cli.ts src/worker/main.ts src/mcp/server.ts src/hooks/hook.ts --target=bun --outdir=dist --splitting"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.0",
+    "@modelcontextprotocol/sdk": "^1.32.0",
+    "sqlite-vec": "^0.1.9",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "@types/bun": "^1.4.2",
+    "typescript": "^7.0.2"
+  },
+  "license": "MIT",
+  "author": "HEXART Sp. z o.o.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lazniak/hipokamp.git"
+  },
+  "homepage": "https://github.com/lazniak/hipokamp",
+  "keywords": [
+    "claude-code",
+    "memory",
+    "mcp",
+    "claude-mem",
+    "codex",
+    "sqlite",
+    "local-first"
+  ]
+}

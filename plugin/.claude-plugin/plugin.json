@@ -1,0 +1,9 @@
+{
+  "name": "hipokamp",
+  "version": "0.1.0",
+  "description": "Free, local long-term memory for Claude Code and other coding agents: capture without an LLM, hybrid search, recall while you work.",
+  "author": {
+    "name": "HEXART"
+  },
+  "license": "MIT"
+}

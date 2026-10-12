@@ -1,0 +1,29 @@
+"""Moduł testowy.
+
+def fake(): to tylko tekst w docstringu
+"""
+
+
+class Pool:
+    size = 0
+
+    def grow(
+        self,
+        n: int = 1,
+        label: str = "(",
+    ) -> int:
+        """Powiększa pulę.
+
+Zwraca nowy rozmiar.
+        """
+        self.size += n
+        return self.size
+
+    def shrink(self) -> None:
+        self.size = 0
+
+
+def helper(
+    a: int,
+) -> int:
+    return a + 1
